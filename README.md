@@ -13,6 +13,12 @@ ___
 ## システム開発について
 * 開発する機能については順次[Project](https://github.com/stuayu/team1/projects)のToDoリストに記載し，必要があれば機能に応じて[Issue](https://github.com/stuayu/team1/issues)で議論を行う．
 * 開発の流れとしては，まずはサーバーをチームメンバーで完成させる．その後，ウェブによるGUIの作成とラズパイでカードの読み取り，出欠確認の機能の実装を進める．
+- Pythonライブラリについて
+  - Pythonこのシステムで利用するライブラリは[requirements.txt](./requirements.txt)に記載してください．
+  - [requirements.txt](./requirements.txt)に記載したライブラリをPCにインストールするときは以下のコマンドを実行してください．必要なライブラリがすべてインストールされます．
+    ```bash
+    pip install -r requirements.txt
+    ```
 ___
 ## 提供されるデータについて
 データベースにはデモデータとして次のデータが利用できる．(以下資料からの抜粋)  
