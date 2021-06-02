@@ -16,7 +16,7 @@ ___
 - Pythonライブラリについて
   - Pythonこのシステムで利用するライブラリは[requirements.txt](./requirements.txt)に記載してください．
   - [requirements.txt](./requirements.txt)に記載したライブラリをPCにインストールするときは以下のコマンドを実行してください．必要なライブラリがすべてインストールされます．
-    ```bash
+    ```powershell
     pip install -r requirements.txt
     ```
 ___
