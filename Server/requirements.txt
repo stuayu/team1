@@ -10,4 +10,4 @@ uvicorn                     #python server 動作
 python-multipart
 python-jose
 peewee
-
+mysql-connector-python

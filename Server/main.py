@@ -28,7 +28,6 @@ def get_root():
 
 # curl -X POST -H "Content-Type: application/json" -d '{"param1":"test1", "param2":"text2"}' http://localhost:8000/
 
-
 @app.post("/")
 def post_root(testParam: TestParam):
     print(testParam)
