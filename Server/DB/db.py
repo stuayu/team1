@@ -3,7 +3,7 @@ import sys
 import json   # jsonファイルの読み込み
 
 # データベースのユーザ名などの設定を読み込み
-with open('./Server/DB/db.json') as f:
+with open('./DB/db.json') as f:
   db=json.load(f)
 
 ## DBコネクターを作成する

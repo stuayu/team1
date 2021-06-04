@@ -2,6 +2,7 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 from starlette.middleware.cors import CORSMiddleware
+from DB import db
 
 # uvicorn main:app --reload --host 0.0.0.0
 app = FastAPI()
@@ -32,3 +33,9 @@ def get_root():
 def post_root(testParam: TestParam):
     print(testParam)
     return testParam
+
+@app.get("/db/{table}")     # docsに表示されるURL
+def get_table(table:str):   # table変数を文字列に定義
+    selectSql = 'Select * from %s' % table  # %sを変数 table に置き換える
+    conn = db.createMysqlConnecter()    # データベースにログイン
+    return db.selectData(conn,selectSql)    # データベースから情報取得
