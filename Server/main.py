@@ -2,7 +2,7 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 from starlette.middleware.cors import CORSMiddleware
-from DB import db
+from DB import db   # DBフォルダにいるdb.pyの関数を読み込み
 
 # uvicorn main:app --reload --host 0.0.0.0
 app = FastAPI()
