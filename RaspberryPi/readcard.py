@@ -26,18 +26,12 @@ while True:
     target_res = clf.sense(target_req_card, iterations=int(TIME_cycle//TIME_interval)+1 , interval=TIME_interval)
     if target_res != None:
 
-        #tag = nfc.tag.tt3.Type3Tag(clf, target_res)
-        #なんか仕様変わったっぽい？↓なら動いた
         tag = nfc.tag.activate_tt3(clf, target_res)
         tag.sys = 3
 
         #IDmを取り出す
         idm = binascii.hexlify(tag.idm)
         print 'idm = ' + idm
-        #---------------------------------------------------------------
-        # このした一行だけ、@undo0530 さんのプログラム実行時エラーになったため、コメントアウトしました
-        #　print 'sleep ' + TIME_wait + ' seconds'
-        #---------------------------------------------------------------
         time.sleep(TIME_wait)
     #end if
     clf.close()
