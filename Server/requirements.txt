@@ -1,13 +1,7 @@
-# == :インストールバージョンを指定する
-# >= :指定バーション以上をインストールする
-# != :指定バージョン以外をインストールする
-# <= :指定バージョン以下をインストールする
-#    :指定なし常に最新バージョンをインストールする
-#
-###### サーバー側の環境設定 ######
-fastapi                     #FastAPIでAPIを作成
-uvicorn                     #python server 動作
+fastapi                     
+uvicorn                     
 python-multipart
 python-jose
 peewee
 mysql-connector-python
+mysqlclient

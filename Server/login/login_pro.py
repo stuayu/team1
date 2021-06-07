@@ -1,4 +1,4 @@
-#メイン処理
+# メイン処理
 
 from fastapi import Depends, FastAPI
 from fastapi.security import OAuth2PasswordRequestForm
@@ -24,20 +24,20 @@ class User(BaseModel):
         orm_mode = True
 
 
-@app.post("/token", response_model=Token)
+@app.post("/token", response_model=Token, tags=["login"])
 async def login(form: OAuth2PasswordRequestForm = Depends()):
     """トークン発行"""
     user = authenticate(form.username, form.password)
     return create_tokens(user.id)
 
 
-@app.get("/refresh_token/", response_model=Token)
+@app.get("/refresh_token/", response_model=Token, tags=["login"])
 async def refresh_token(current_user: User = Depends(get_current_user_with_refresh_token)):
     """リフレッシュトークンでトークンを再取得"""
     return create_tokens(current_user.id)
 
 
-@app.get("/users/me/", response_model=User)
+@app.get("/users/me/", response_model=User, tags=["login"])
 async def read_users_me(current_user: User = Depends(get_current_user)):
     """ログイン中のユーザーを取得"""
     return current_user

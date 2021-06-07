@@ -1,2 +1,2 @@
-Server/__pycache__/
-Server/DB/__pycache__/
+# python キャッシュファイルを管理しない
+*.pyc

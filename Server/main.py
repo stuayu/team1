@@ -1,8 +1,10 @@
 
-from fastapi import FastAPI
+from fastapi import FastAPI,Depends,Form
 from pydantic import BaseModel
 from starlette.middleware.cors import CORSMiddleware
-from DB import db   # DBフォルダにいるdb.pyの関数を読み込み
+from DB import db  # DBフォルダにいるdb.pyの関数を読み込み
+from fastapi.security import OAuth2PasswordRequestForm
+from login.auth_pro import get_current_user, get_current_user_with_refresh_token, create_tokens, authenticate, create_user
 
 # uvicorn main:app --reload --host 0.0.0.0
 app = FastAPI()
@@ -23,6 +25,43 @@ class TestParam(BaseModel):
 # curl http://localhost:8000/
 
 
+class Token(BaseModel):
+    access_token: str
+    refresh_token: str
+    token_type: str
+
+    class Config:
+        orm_mode = True
+
+class User(BaseModel):
+    name: str
+
+    class Config:
+        orm_mode = True
+
+
+@app.post("/token", response_model=Token, tags=["login"])
+async def login(form: OAuth2PasswordRequestForm = Depends()):
+    """トークン発行"""
+    user = authenticate(form.username, form.password)
+    return create_tokens(user.id)
+
+
+@app.get("/refresh_token/", response_model=Token, tags=["login"])
+async def refresh_token(current_user: User = Depends(get_current_user_with_refresh_token)):
+    """リフレッシュトークンでトークンを再取得"""
+    return create_tokens(current_user.id)
+
+
+@app.get("/users/me/", response_model=User, tags=["login"])
+async def read_users_me(current_user: User = Depends(get_current_user)):
+    """ログイン中のユーザーを取得"""
+    return current_user
+
+@app.post("/user/create", tags=["login"])
+async def signup(current_user: User = Depends(create_user)):
+    return current_user
+    
 @app.get("/")
 def get_root():
     return {"message": "fastapi sample"}

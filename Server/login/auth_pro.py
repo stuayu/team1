@@ -4,9 +4,8 @@ from fastapi import Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
 from datetime import datetime, timedelta
 from jose import jwt
-
-
-from model import User
+from login.model import User
+from hashlib import *
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
@@ -14,8 +13,10 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 def authenticate(name: str, password: str):
     """パスワード認証し、userを返却"""
     user = User.get(name=name)
+    dat = password
+    hs = sha256(dat.encode()).hexdigest()
     #パスワードが違った際は例外(エラー)を発生させる
-    if user.password != password:
+    if user.password != hs:
         raise HTTPException(status_code=401, detail='パスワード不一致')
     return user
 
@@ -43,6 +44,15 @@ def create_tokens(user_id: int):
 
     return {'access_token': access_token, 'refresh_token': refresh_token, 'token_type': 'bearer'}
 
+def create_user(_name:str,_password:str):
+    """ユーザを作成する"""
+    dat = _password
+    hs = sha256(dat.encode()).hexdigest()
+    try:
+        User.create(name=_name, password=hs)
+    except:
+        return False
+    return True
 
 def get_current_user_from_token(token: str, token_type: str):
     """tokenからユーザーを取得"""
