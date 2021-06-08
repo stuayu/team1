@@ -21,6 +21,7 @@ ___
 - サーバの起動方法
   ```powershell
   cd Server
+  pip install -r requirements.txt
   uvicorn main:app
   ```
 ## システム開発について
