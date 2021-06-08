@@ -70,9 +70,11 @@ def password_renew(_name: str, old_password: str, new_password:str):
     elif User.select().where(User.password != old_hs):
         raise HTTPException(status_code=401, detail='パスワードが間違っていますもう一度確認してください')
     
-    User.update(password=new_hs).where(User.name == _name).execute()
+    else:
+        User.update(password=new_hs).where(User.name == _name).execute()
     
-    return {'user':User.name}
+    
+    return {'message':'新しいパスワードになりました'}
 
 
 
