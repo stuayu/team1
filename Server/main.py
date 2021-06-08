@@ -1,10 +1,10 @@
 
-from fastapi import FastAPI,Depends,Form
+from fastapi import FastAPI, Depends, Form
 from pydantic import BaseModel
 from starlette.middleware.cors import CORSMiddleware
 from DB import db  # DBフォルダにいるdb.pyの関数を読み込み
 from fastapi.security import OAuth2PasswordRequestForm
-from login.auth_pro import get_current_user, get_current_user_with_refresh_token, create_tokens, authenticate, create_user
+from login.auth_pro import get_current_user, get_current_user_with_refresh_token, create_tokens, authenticate, create_user, password_renew
 
 # uvicorn main:app --reload --host 0.0.0.0
 app = FastAPI()
@@ -33,6 +33,7 @@ class Token(BaseModel):
     class Config:
         orm_mode = True
 
+
 class User(BaseModel):
     name: str
 
@@ -58,23 +59,34 @@ async def read_users_me(current_user: User = Depends(get_current_user)):
     """ログイン中のユーザーを取得"""
     return current_user
 
-@app.post("/user/create", tags=["login"])
-async def signup(current_user: User = Depends(create_user)):
-    return current_user
-    
+
+@app.post("/user/create/", tags=["login"])
+async def signup(username: str = Form(...), password: str = Form(...)):
+    """ユーザー作成"""
+    res = create_user(username, password)
+    return res
+
+@app.post("/user/renewpass/", tags=["login"])
+async def renewpass(username: str = Form(...), old_password: str = Form(...), new_password: str = Form(...)):
+    """ パスワード更新"""
+    res = password_renew(username, old_password,new_password)
+    return res
+
 @app.get("/")
 def get_root():
     return {"message": "fastapi sample"}
 
 # curl -X POST -H "Content-Type: application/json" -d '{"param1":"test1", "param2":"text2"}' http://localhost:8000/
 
+
 @app.post("/")
 def post_root(testParam: TestParam):
     print(testParam)
     return testParam
 
+
 @app.get("/db/{table}")     # docsに表示されるURL
-def get_table(table:str):   # table変数を文字列に定義
+def get_table(table: str):   # table変数を文字列に定義
     selectSql = 'Select * from %s' % table  # %sを変数 table に置き換える
     conn = db.createMysqlConnecter()    # データベースにログイン
-    return db.selectData(conn,selectSql)    # データベースから情報取得
+    return db.selectData(conn, selectSql)    # データベースから情報取得

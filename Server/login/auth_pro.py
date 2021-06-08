@@ -1,4 +1,4 @@
-#ログインした際のパスワード認証とトークン生成の関数
+# ログインした際のパスワード認証とトークン生成の関数
 
 from fastapi import Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
@@ -15,7 +15,7 @@ def authenticate(name: str, password: str):
     user = User.get(name=name)
     dat = password
     hs = sha256(dat.encode()).hexdigest()
-    #パスワードが違った際は例外(エラー)を発生させる
+    # パスワードが違った際は例外(エラー)を発生させる
     if user.password != hs:
         raise HTTPException(status_code=401, detail='パスワード不一致')
     return user
@@ -36,23 +36,45 @@ def create_tokens(user_id: int):
     }
 
     # トークン作成（'SECRET_KEY123'はより複雑にした方がいい）
-    access_token = jwt.encode(access_payload, 'SECRET_KEY123', algorithm='HS256')
-    refresh_token = jwt.encode(refresh_payload, 'SECRET_KEY123', algorithm='HS256')
+    access_token = jwt.encode(
+        access_payload, 'SECRET_KEY123', algorithm='HS256')
+    refresh_token = jwt.encode(
+        refresh_payload, 'SECRET_KEY123', algorithm='HS256')
 
     # DBにリフレッシュトークンを保存
-    User.update(refresh_token=refresh_token).where(User.id == user_id).execute()
+    User.update(refresh_token=refresh_token).where(
+        User.id == user_id).execute()
 
     return {'access_token': access_token, 'refresh_token': refresh_token, 'token_type': 'bearer'}
 
-def create_user(_name:str,_password:str):
+
+def create_user(_name: str, _password: str):
     """ユーザを作成する"""
     dat = _password
-    hs = sha256(dat.encode()).hexdigest()
-    try:
-        User.create(name=_name, password=hs)
-    except:
-        return False
-    return True
+    hs = sha256(dat.encode()).hexdigest()  # sha256で暗号化しデータベース内に保存
+    if User.select().where(User.name == _name):
+        raise HTTPException(status_code=401, detail='すでにユーザーは存在しています')
+    User.create(name=_name, password=hs)
+    return {'user': _name}
+    
+def password_renew(_name: str, old_password: str, new_password:str):
+    """パスワード変更"""
+    old_dat = old_password
+    new_dat = new_password
+    new_hs = sha256(new_dat.encode()).hexdigest()  # sha256で暗号化
+    old_hs = sha256(old_dat.encode()).hexdigest()  # sha256で暗号化
+
+    if User.select().where(User.name != _name):
+        raise HTTPException(status_code=401, detail='すでにユーザーは存在していません')
+    
+    elif User.select().where(User.password != old_hs):
+        raise HTTPException(status_code=401, detail='パスワードが間違っていますもう一度確認してください')
+    
+    User.update(password=new_hs).where(User.name == _name).execute()
+    
+    return {'user':User.name}
+
+
 
 def get_current_user_from_token(token: str, token_type: str):
     """tokenからユーザーを取得"""
