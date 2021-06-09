@@ -47,7 +47,8 @@ def post_root(testParam: TestParam):
 
 
 @app.get("/db/{table}")     # docsに表示されるURL
-def get_table(table: str):   # table変数を文字列に定義
+def get_table(table: str):  # table変数を文字列に定義
+    """データベースにあるテーブル名を入力すると中身がそのまま帰ってくる機能です(危険)"""
     selectSql = 'Select * from %s' % table  # %sを変数 table に置き換える
     conn = db.createMysqlConnecter()    # データベースにログイン
     return db.selectData(conn, selectSql)    # データベースから情報取得
