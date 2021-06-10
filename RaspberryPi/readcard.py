@@ -7,7 +7,7 @@ class MyCardReader(object):
 
     def on_connect(self, tag):
         print("touched")
-        self.idm = binascii.hexlity(tag.idm).decode().upper()
+        self.idm = binascii.hexlify(tag.idm).decode().upper()
         return True
     
     def read_id(self):
