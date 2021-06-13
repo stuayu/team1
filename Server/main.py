@@ -55,7 +55,7 @@ def get_table(table: str):  # table変数を文字列に定義
     return db.selectData(conn, selectSql)    # データベースから情報取得
 
 #ユーザの教科を取得(仮)
-@app.get("/db/",tags=["Subject"])
-def get_db_subject(tokens):
-    return get_subject(tokens)
+#@app.get("/db/",tags=["Subject"])
+#def get_db_subject(tokens):
+ #   return get_subject(tokens)
 
