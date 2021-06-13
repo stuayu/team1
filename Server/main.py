@@ -4,6 +4,7 @@ from pydantic import BaseModel
 from starlette.middleware.cors import CORSMiddleware
 from DB import db  # DBフォルダにいるdb.pyの関数を読み込み
 from routers import login
+from DB import db_subject
 
 # uvicorn main:app --reload --host 0.0.0.0
 app = FastAPI()
@@ -52,3 +53,9 @@ def get_table(table: str):  # table変数を文字列に定義
     selectSql = 'Select * from %s' % table  # %sを変数 table に置き換える
     conn = db.createMysqlConnecter()    # データベースにログイン
     return db.selectData(conn, selectSql)    # データベースから情報取得
+
+#ユーザの教科を取得(仮)
+@app.get("/db/",tags=["Subject"])
+def get_db_subject(tokens):
+    return get_subject(tokens)
+
