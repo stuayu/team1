@@ -1,4 +1,3 @@
-#ログインした人の教科データの入手
 from fastapi import Depends, FastAPI
 from fastapi.security import OAuth2PasswordRequestForm
 from pydantic import BaseModel
@@ -6,7 +5,7 @@ from auth_pro import get_current_user, get_current_user_with_refresh_token, crea
 from login.auth_pro import get_current_user, get_current_user_with_refresh_token, create_tokens, authenticate, create_user, password_renew
 from DB import db
 
-
+#ログインした人の履修科目を取り出す
 def get_subject(tokens):
     user1 = get_current_user(tokens)
     selectSql = 'Select * from %s' % table
