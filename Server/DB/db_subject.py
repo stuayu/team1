@@ -1,7 +1,7 @@
 from fastapi import Depends, FastAPI
 from fastapi.security import OAuth2PasswordRequestForm
 from pydantic import BaseModel
-from auth_pro import get_current_user
+#from auth_pro import get_current_user
 from login.auth_pro import get_current_user
 from DB import db
 
