@@ -26,6 +26,6 @@ if __name__ == '__main__':
         print("released")
         print("IDm = {}".format(cr.idm))
         current_time = time()
-        #print("time = %3.2f" % (current_time - start_time))
+        print("time = %3.2f" % (current_time - start_time))
         if current_time - start_time > 10.0:
             sys.exit()
