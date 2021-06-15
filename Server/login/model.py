@@ -1,19 +1,9 @@
-# peeweeを使ってsqliteでの実装
-# MariaDBでの実装に変更が必要
+# peeweeを使ってmariaDBでの実装
 
 from peewee import *
-import json
+from DB.db_access import db_login
 
-with open('./DB/db.json', 'r', encoding='utf-8') as f:
-    db_set = json.load(f)
-
-db = MySQLDatabase(
-    host=db_set['mariadb']['host'],
-    port=db_set['mariadb']['port'],
-    user=db_set['mariadb']['user'],
-    password=db_set['mariadb']['password'],
-    database=db_set['mariadb']['dbname'],
-)
+db=db_login()  # データベースにアクセスするには必ず必要
 
 
 class User(Model):
