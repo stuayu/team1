@@ -1,7 +1,7 @@
 {
     "mariadb":{
         "host": "localhost",
-        "port": "3306",
+        "port": 3306,
         "user": "team1",
         "password": "team1",
         "dbname": "team1"
