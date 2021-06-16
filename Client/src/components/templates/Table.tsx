@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { DataGrid, GridColDef, GridValueGetterParams } from '@material-ui/data-grid';
-
+import get from "Axios/PersonList-get";
 
 const columns: GridColDef[] = [
   { field: 'id', headerName: '学籍番号', width: 200 },
