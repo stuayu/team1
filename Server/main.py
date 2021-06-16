@@ -5,10 +5,7 @@ from starlette.middleware.cors import CORSMiddleware
 # DBフォルダにいるdb.pyの関数を読み込み．なお同じフォルダ内のファイルをインポートする場合は","で追加
 from DB import db, db_subject
 from routers import login
-<<<<<<< HEAD
 from DB.db_subject import get_subject 
-=======
->>>>>>> 4a3414796cc52fc8f36018bd3a4be54cbcdcce5e
 
 # uvicorn main:app --reload --host 0.0.0.0
 app = FastAPI()
@@ -62,7 +59,7 @@ def get_table(table: str):  # table変数を文字列に定義
     conn = db.createMysqlConnecter()    # データベースにログイン
     return db.selectData(conn, selectSql)    # データベースから情報取得
 
-#ユーザの教科を取得(仮)
+#ユーザの教科を取得
 @app.get("/db/",tags=["Subject"])
 def get_db_subject(token):
     return get_subject(token)
