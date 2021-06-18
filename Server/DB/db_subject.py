@@ -35,7 +35,7 @@ def get_subject_student(token):
     for i in range(len(user2)): #user2の長さの分だけ繰り返す
         if user1.name == user2[i][1]:#ログインした人の名前とDBから取得したデータからユーザを探す
             subject = user2[i][5:] #履修教科を取得
-        break
+            break
     t = [] # 空白を取り除いた教科を代入するためのタプル
     for i in range(len(subject)):
         if len(subject[i]) > 0:  
