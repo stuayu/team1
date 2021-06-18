@@ -1,11 +1,12 @@
 
+#from Server.DB.db_subject import get_subject_student
 from fastapi import FastAPI, Depends, Form
 from pydantic import BaseModel
 from starlette.middleware.cors import CORSMiddleware
 # DBフォルダにいるdb.pyの関数を読み込み．なお同じフォルダ内のファイルをインポートする場合は","で追加
 from DB import db, db_subject
 from routers import login
-from DB.db_subject import get_subject 
+from DB.db_subject import get_subject_teacher,get_subject_student
 
 # uvicorn main:app --reload --host 0.0.0.0
 app = FastAPI()
@@ -62,6 +63,11 @@ def get_table(table: str):  # table変数を文字列に定義
 #ユーザの教科を取得
 @app.get("/db/",tags=["Subject"])
 def get_db_subject(token):
-    return get_subject(token)
+    return get_subject_teacher(token)
+
+#ユーザの教科を取得
+@app.get("/db2/",tags=["Subject"])
+def get_db_subject(token):
+    return get_subject_student(token)
 
 
