@@ -60,12 +60,12 @@ def get_table(table: str):  # table変数を文字列に定義
     conn = db.createMysqlConnecter()    # データベースにログイン
     return db.selectData(conn, selectSql)    # データベースから情報取得
 
-#ユーザの教科を取得
+#ユーザ(先生)の教科を取得
 @app.get("/db/",tags=["Subject"])
 def get_db_subject(token):
     return get_subject_teacher(token)
 
-#ユーザの教科を取得
+#ユーザ(生徒)の教科を取得
 @app.get("/db2/",tags=["Subject"])
 def get_db_subject(token):
     return get_subject_student(token)

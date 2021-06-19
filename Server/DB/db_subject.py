@@ -9,7 +9,7 @@ from DB import db
 def get_subject_teacher(token):
     user1 = get_current_user_from_token(token,'access_token') #ログインしたユーザを取得
     user2 = [] #DBからデータを収納
-    subject =[] #担当教科
+    subject =[] #担当教科を代入するためのタプル
 
     selectSql = "Select * from teacher_subject" #teacher_subjectから先生のデータを取り出す
     conn = db.createMysqlConnecter()
@@ -38,8 +38,8 @@ def get_subject_student(token):
             break
     t = [] # 空白を取り除いた教科を代入するためのタプル
     for i in range(len(subject)):
-        if len(subject[i]) > 0:  
-            t.append(subject[i])
+        if len(subject[i]) > 0: #空白以外
+            t.append(subject[i]) #空白以外を代入
     return t
 
 
