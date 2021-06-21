@@ -5,3 +5,4 @@ python-jose
 peewee
 mysql-connector-python
 mysqlclient
+pycryptdome
