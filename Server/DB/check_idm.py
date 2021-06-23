@@ -1,29 +1,11 @@
-from Crypto.Cipher import AES
-from Crypto.Util import Padding
-from peewee import *
 import datetime
-from DB.db_access import db_login
+from DB import db
 from key.readkey import get_key  # AESキーの取得
-
-
-db = db_login()
 
 
 def get_data(teacher_id: str, student_idm: str, iv: bytes):
     """ここにメイン関数を作る
-    teacher_id : AES公開キーで暗号化
-    student_idm: AES公開キーで暗号化
     """
-    cipher = AES.new(key=get_key, mode=AES.MODE_CBC, iv=iv)    # AESの秘密キーで復号化準備
-    teacher = cipher.decrypt(teacher_id) # AESの秘密キーで復号化
-    student = cipher.decrypt(student_idm)  # AESの秘密キーで復号化
-    plain_teacher = Padding.unpad(teacher, 32, 'pkcs7')
-    plain_student = Padding.unpad(student, 32, 'pkcs7')
-
-
-    # debug
-    print('teacherの復号結果:' + plain_teacher)
-    print('studentの復号結果:' + plain_student)
 
     #subject = get_subject(teacher)
 
@@ -33,8 +15,23 @@ def get_data(teacher_id: str, student_idm: str, iv: bytes):
 
 def get_subject(teacher_id: str):
     """ここに現在の日時と曜日と教員のIDから出欠登録しようとしている科目の決定
-       戻り値：科目ID
+       戻り値：講義ID
     """
+    temp = []  # 一時的に配列に代入するよう
+    date = datetime.date.today()  # 今日の日付を取得 (2021-06-23)
+    date = "{}/{}/{}".format(date.year, date.month,
+                             date.day)  # 日付の形式を変更(2021/6/23)
+    # time-rule テーブルを操作
+    # %sを変数 date に置き換える
+    selectSql = "Select `日付`, `時間割`,`回数` FROM `subject-rules2` WHERE  `日付`=%s" % date
+    conn = db.createMysqlConnecter()
+
+    temp = db.selectData(conn, selectSql)
+
+    time_rule = temp[1][2]  # 時間割データ
+    number = temp[1][3]  # 第何回の講義か
+    
+
 
     return subject
 
