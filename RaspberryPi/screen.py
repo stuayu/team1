@@ -8,7 +8,7 @@ def btn_click1():
 
     baseGround_new_csv1 = tk.Tk()
     # GUIの画面サイズ
-    baseGround_new_csv1.geometry('300x200')
+    baseGround_new_csv1.geometry('800x480')
     #GUIの画面タイトル
     baseGround_new_csv1.title('結果画面1')
     #ラベル
@@ -25,7 +25,7 @@ def btn_click2():
 
     baseGround_new_csv2 = tk.Tk()
     # GUIの画面サイズ
-    baseGround_new_csv2.geometry('300x200')
+    baseGround_new_csv2.geometry('800x480')
     #GUIの画面タイトル
     baseGround_new_csv2.title('結果画面2')
     #ラベル
@@ -43,7 +43,7 @@ def btn_click3():
 
     baseGround_new_csv3 = tk.Tk()
     # GUIの画面サイズ
-    baseGround_new_csv3.geometry('300x200')
+    baseGround_new_csv3.geometry('800x480')
     #GUIの画面タイトル
     baseGround_new_csv3.title('結果画面3')
     #ラベル
@@ -64,8 +64,7 @@ def btn_click():
     L_ID = text2.get() #講義のID
 
     # GUIの画面サイズ
-    baseGround_new_csv4.geometry('300x200')
-
+    baseGround_new_csv4.geometry('800x480')
     #GUIの画面タイトル
     if T_ID == 'P001' and L_ID == 'T4':
         baseGround_new_csv4.title('応用数学')
@@ -129,7 +128,7 @@ def btn_click():
 
 baseGround = tk.Tk()
 # GUIの画面サイズ
-baseGround.geometry('300x200')
+baseGround.geometry('800x480')
 #GUIの画面タイトル
 baseGround.title('初期画面')
 
