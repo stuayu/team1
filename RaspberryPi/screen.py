@@ -59,13 +59,10 @@ def btn_click():
         baseGround_new_csv4.destroy()
     
     baseGround_new_csv4 = tk.Tk()
-
-    T_ID = text1.get() #先生のID
-    L_ID = text2.get() #講義のID
-
     # GUIの画面サイズ
     baseGround_new_csv4.geometry('800x480')
-
+    #GUIの画面タイトル
+    baseGround_new_csv4.title('待機画面')
     #ラベル
     label = tk.Label(baseGround_new_csv4,text = 'カードをタップしてください', foreground='white', background='black')
     label.pack()
@@ -96,11 +93,11 @@ label = tk.Label(text = '教員IDと講義IDを入力してください',foregro
 label.pack()
 label = tk.Label(text = '教員IDを入力してください')
 label.pack()
-text1 = tk.Entry(width=30)
+text1 = tk.Entry()
 text1.pack()
 label = tk.Label(text = '講義IDを入力してください')
 label.pack()
-text2 = tk.Entry(width=30)
+text2 = tk.Entry()
 text2.pack()
 #ボタン
 btn = tk.Button(baseGround, text='OK', command=btn_click).pack(padx = 10, pady = 40)
