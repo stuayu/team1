@@ -1,0 +1,6 @@
+contrib/*
+docs/*
+html/*
+logs/*
+temp/*
+letsencrypt/*
