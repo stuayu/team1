@@ -1,6 +1,9 @@
 import tkinter as tk
+import tkinter.ttk as ttk
 
 def btn_click1():
+
+    baseGround.destroy()
 
     #最初のGUIの画面に戻る
     def return_view():
@@ -54,11 +57,14 @@ def btn_click3():
     baseGround_new_csv3.mainloop()
 
 def btn_click():
+
+
     #最初のGUIの画面に戻る
     def return_view():
         baseGround_new_csv4.destroy()
     
     baseGround_new_csv4 = tk.Tk()
+
 
     T_ID = text1.get() #先生のID
     L_ID = text2.get() #講義のID
@@ -120,30 +126,34 @@ def btn_click():
     btn3 = tk.Button(baseGround_new_csv4, text='教科間違い', command=btn_click3)
     btn3.pack()
 
+
     btn_return = tk.Button(baseGround_new_csv4, text='初期画面に戻る', command=return_view).pack(padx = 30, pady = 40)
  
     #表示
     baseGround_new_csv4.mainloop()
 
 
+
+#メインウィンドウ
 baseGround = tk.Tk()
 # GUIの画面サイズ
 baseGround.geometry('800x480')
 #GUIの画面タイトル
 baseGround.title('初期画面')
 
+
 #ラベルとテキストボックス
-label = tk.Label(text = '教員IDと講義IDを入力してください',foreground='white', background='black')
-label.pack()
+label = tk.Label(text = '教員IDと講義IDを入力してください',foreground='white', background='black',font=("20"))
+label.pack(padx = 10, pady = 30)
 label = tk.Label(text = '教員IDを入力してください')
-label.pack()
+label.pack(padx = 10, pady = 0)
 text1 = tk.Entry(width=30)
-text1.pack()
+text1.pack(padx = 10, pady = 0)
 label = tk.Label(text = '講義IDを入力してください')
-label.pack()
+label.pack(padx = 10, pady = 0)
 text2 = tk.Entry(width=30)
-text2.pack()
+text2.pack(padx = 10, pady = 0)
 #ボタン
-btn = tk.Button(baseGround, text='OK', command=btn_click).pack(padx = 10, pady = 40)
+btn = tk.Button(baseGround, text='OK', command=btn_click).pack(padx = 10, pady = 100)
 #表示
 baseGround.mainloop()
