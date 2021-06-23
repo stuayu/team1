@@ -65,47 +65,6 @@ def btn_click():
 
     # GUIの画面サイズ
     baseGround_new_csv4.geometry('800x480')
-    #GUIの画面タイトル
-    if T_ID == 'P001' and L_ID == 'T4':
-        baseGround_new_csv4.title('応用数学')
-    elif T_ID == 'P001' and L_ID == 'T5':
-        baseGround_new_csv4.title('数学演習')
-    elif T_ID == 'P002' and L_ID == 'W5_1':
-        baseGround_new_csv4.title('保健体育')
-    elif T_ID == 'P003' and L_ID == 'M1':
-        baseGround_new_csv4.title('心理学')
-    elif T_ID == 'P004' and L_ID == 'W12':
-        baseGround_new_csv4.title('プログラミング')
-    elif T_ID == 'P005' and L_ID == 'Th5_1':
-        baseGround_new_csv4.title('電磁気学')
-    elif T_ID == 'P006' and L_ID == 'F2':
-        baseGround_new_csv4.title('情報ネットワーク')
-    elif T_ID == 'P007' and L_ID == 'M4':
-        baseGround_new_csv4.title('システム開発演習')
-    elif T_ID == 'P007' and L_ID == 'Th34':
-        baseGround_new_csv4.title('情報工学実習')
-    elif T_ID == 'P008' and L_ID == 'M3':
-        baseGround_new_csv4.title('情報理論')
-    elif T_ID == 'P008' and L_ID == 'F3':
-        baseGround_new_csv4.title('アルゴリズムとデータ構造')
-    elif T_ID == 'P009' and L_ID == 'W3_1':
-        baseGround_new_csv4.title('経済学')
-    elif T_ID == 'P010' and L_ID == 'T2':
-        baseGround_new_csv4.title('英会話')
-    elif T_ID == 'P011' and L_ID == 'M2':
-        baseGround_new_csv4.title('教養英語')
-    elif T_ID == 'P011' and L_ID == 'F1':
-        baseGround_new_csv4.title('科学英語')
-    elif T_ID == 'P012' and L_ID == 'T3_2':
-        baseGround_new_csv4.title('物理学')
-    elif T_ID == 'P013' and L_ID == 'W5_2':
-        baseGround_new_csv4.title('コミュニケーション入門')
-    elif T_ID == 'P014' and L_ID == 'Th5_2':
-        baseGround_new_csv4.title('電子回路学')
-    elif T_ID == 'P015' and L_ID == 'W4':
-        baseGround_new_csv4.title('信号処理')
-    elif T_ID == 'P016' and L_ID == 'W3_2':
-        baseGround_new_csv4.title('文学・文化学')
 
     #ラベル
     label = tk.Label(baseGround_new_csv4,text = 'カードをタップしてください', foreground='white', background='black')
