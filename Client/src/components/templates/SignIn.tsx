@@ -12,6 +12,18 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { useState } from 'react';
+
+const Form =({handleclose}) =>{
+  const classes = useStyles();
+  const [id,setId] = useState('');
+  const [password,setpassword] = useState('');
+  const handleSubmit = e =>{
+    e.preventDefault();
+    console.log(id,password);
+    handleclose();
+  };
+}
 
 function Copyright() {
   return (
@@ -45,9 +57,30 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 0, 2),
   },
 }));
+//function send() {
+  // const element: HTMLInputElement =<HTMLInputElement>document.getElementById('email');
+  //const email = document.querySelector('#email');
+  //console.log(email.value);
+//}
 
 export default function SignIn() {
   const classes = useStyles();
+  const [id,setId] = useState('');
+  const [password,setpassword] = useState('');
+  const onSubmit = (data) =>console.log(data);
+  const handleSubmit = (event) =>{
+    event.preventDefult();
+    console.log(id);
+    console.log(password);
+  };
+
+  /*handleOnChange(e){
+    this.setState({
+      [e.target.name]: e.target.value,
+    })
+  }
+  */
+  
 
   return (
     <Container component="main" maxWidth="xs">
@@ -59,7 +92,7 @@ export default function SignIn() {
         <Typography component="h1" variant="h5">
           Team 1
         </Typography>
-        <form className={classes.form} noValidate>
+        <form onSubmit = {handleSubmit} className = {class.form} noValidate>
           <TextField
             variant="outlined"
             margin="normal"
@@ -70,6 +103,8 @@ export default function SignIn() {
             name="id"
             autoComplete="id"
             autoFocus
+            //onChange = {e => this.handleOnChange(e)}
+            value = {id}
           />
           <TextField
             variant="outlined"
@@ -81,6 +116,8 @@ export default function SignIn() {
             type="password"
             id="password"
             autoComplete="current-password"
+            value = {password}
+            //onChange = {e => this.handleOnChange(e)}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
@@ -92,6 +129,9 @@ export default function SignIn() {
             variant="contained"
             color="primary"
             className={classes.submit}
+            
+            //onClick={send}
+
           >
             ログイン
           </Button>

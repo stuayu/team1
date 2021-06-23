@@ -1,3 +1,5 @@
+export {}
+/*
 import * as React from 'react';
 import { DataGrid, GridColDef, GridValueGetterParams } from '@material-ui/data-grid';
 import get from "Axios/PersonList-get";
@@ -29,3 +31,4 @@ export default function DataTable() {
     </div>
   );
 }
+*/
