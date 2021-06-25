@@ -1,5 +1,6 @@
+export {}
 // POST送信
-fetch('[送信先のURL]', {
+fetch('[]', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

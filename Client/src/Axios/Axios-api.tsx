@@ -16,9 +16,9 @@ class Getpcinfo extends Component {
  
   getData() {
     axios
-      .get('http://test.com/api/v1/computers?pageSize=100',{
+      .get('http://127.0.0.1:8000/db/student',{
         headers: {
-          Authorization: "Bearer 8213f5cd-5fds2-4891-83d0-48d172ffab77"
+          accept: 'application/json'
         }
       })
       .then(results => {
@@ -30,32 +30,33 @@ class Getpcinfo extends Component {
       });
   }
  
-  render() {
-    const columns = [
-      { title: '学籍番号', field: 'id' },
-      { title: '氏名', field: 'Name' },
-      { title: '出席状況', field: 'Attend'},
-      { title: 'Idm', field: 'idm'},   
-    ]
+  //render() {
+    //const columns = [
+      //{ title: '学籍番号', field: 'id' },
+      //{ title: '氏名', field: 'Name' },
+      //{ title: '出席状況', field: 'Attend'},
+      //{ title: 'Idm', field: 'idm'},   
+    //]
     
-    return (
-      <div>                           
-        <MaterialTable
-        title="PC INFO"
-        columns={columns}
-        data={this.state.info}
-        isLoading={this.state.isLoading}
-        options={{
-          pageSize: 10,
-          pageSizeOptions: [10, 20,50, 100, 200, 300, 400 ,500],
-          toolbar: true,
-          paging: true
-        }}
-        />        
-        <Button variant="contained" color="primary" onClick={this.getData}>info get</Button>
-      </div>
-    )
-  }
-}
+    return
+   } //(
+      //<div>                           
+        //</div><MaterialTable
+        //title="PC INFO"
+        //columns={columns}
+        //data={this.state.info}
+        //isLoading={this.state.isLoading}
+        //options={{
+          //pageSize: 10,
+          //pageSizeOptions: [10, 20,50, 100, 200, 300, 400 ,500],
+          //toolbar: true,
+          //paging: true
+        //}}
+        //>        
+        //<Button variant="contained" color="primary" onClick={this.getData}>info get</Button>
+      //</div>
+    //)
+  //}
+//}
  
-export default Getpcinfo
+//export default Getpcinfo
