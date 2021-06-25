@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -10,24 +10,25 @@ import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { useState } from 'react';
 
-const Form =({handleclose}) =>{
-  const classes = useStyles();
-  const [id,setId] = useState('');
-  const [password,setpassword] = useState('');
-  const handleSubmit = e =>{
-    e.preventDefault();
-    console.log(id,password);
-    handleclose();
-  };
-}
-
-function Copyright() {
+/*
+  *****コメントを読んで下さい*****
+  よくわからなかったため，今回　material ui のバージョンを上げました．
+  *****必ず npm install を実行してください．*****
+  したがって，他の箇所のコードが動かないことが発生しており，一時的にすべてコメントアウト
+  しています．
+  これらを解決する際には公式サイトのリファレンスを参考にしてください．
+  https://next.material-ui.com/
+  このサイトはMaterial Uiのバージョン5について書かれています．
+  このログインページを開くには /login をつけてアクセスしてください．
+  またこのテンプレートはMaterial UIのGithubから持ってきました．
+  https://github.com/mui-org/material-ui/blob/next/docs/src/pages/getting-started/templates/sign-in/SignIn.tsx
+  渡辺
+*/
+function Copyright(props: any) {
   return (
-    <Typography variant="body2" color="textSecondary" align="center">
+    <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
       <Link color="inherit" href="https://material-ui.com/">
         Team1
@@ -38,76 +39,50 @@ function Copyright() {
   );
 }
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-}));
-//function send() {
-  // const element: HTMLInputElement =<HTMLInputElement>document.getElementById('email');
-  //const email = document.querySelector('#email');
-  //console.log(email.value);
-//}
-
 export default function SignIn() {
-  const classes = useStyles();
-  const [id,setId] = useState('');
-  const [password,setpassword] = useState('');
-  const onSubmit = (data) =>console.log(data);
-  const handleSubmit = (event) =>{
-    event.preventDefult();
-    console.log(id);
-    console.log(password);
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    // eslint-disable-next-line no-console
+    // ここのconsole.logによってF12を押すと表示されるコンソールに
+    // ID: ---, password:----,が表示されていると思います．
+    // ここに idとパスワードを送信するPOSTに機能を記述またはインポートしてサーバーと通信できるように
+    // 設定お願いします． 渡辺
+    console.log({
+      ID: data.get('id'),
+      password: data.get('password'),
+    });
   };
-
-  /*handleOnChange(e){
-    this.setState({
-      [e.target.name]: e.target.value,
-    })
-  }
-  */
-  
 
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
+      <Box
+        sx={{
+          marginTop: 8,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
           Team 1
         </Typography>
-        <form onSubmit = {handleSubmit} className = {class.form} noValidate>
+        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
-            variant="outlined"
             margin="normal"
             required
             fullWidth
-            id="email"
+            id="id"
             label="ID"
             name="id"
             autoComplete="id"
             autoFocus
-            //onChange = {e => this.handleOnChange(e)}
-            value = {id}
           />
           <TextField
-            variant="outlined"
             margin="normal"
             required
             fullWidth
@@ -116,23 +91,12 @@ export default function SignIn() {
             type="password"
             id="password"
             autoComplete="current-password"
-            value = {password}
-            //onChange = {e => this.handleOnChange(e)}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            
-            //onClick={send}
-
-          >
+          <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
             ログイン
           </Button>
           <Grid container>
@@ -147,11 +111,9 @@ export default function SignIn() {
               </Link>
             </Grid>
           </Grid>
-        </form>
-      </div>
-      <Box mt={8}>
-        <Copyright />
+        </Box>
       </Box>
+      <Copyright sx={{ mt: 8, mb: 4 }} />
     </Container>
   );
 }

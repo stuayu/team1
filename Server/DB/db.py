@@ -102,10 +102,16 @@ def main():
   # select用SQL
   selectSql = '''Select * from student;
   '''
+  time_rule = 'Mon'
+  teacher_id = 'P003'
+  time='9:31'
+  selectSql_2 = "Select `講義ID`,`時間割`,`教員ID`,`受付開始`,`遅刻限度` FROM `time-rules` WHERE `時間割`='%s'&& `教員ID`='%s' && '%s' BETWEEN `受付開始` AND `遅刻限度`" % (time_rule , teacher_id , time)
 
-  rows = selectData(conn, selectSql)
+  rows = selectData(conn, selectSql_2)
 
   print('result:')
+  print(len(rows))
+  #print(rows[0][2])
   for r in rows:
     print(r)
 
