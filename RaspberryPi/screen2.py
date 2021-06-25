@@ -19,11 +19,7 @@ if __name__ == "__main__":
     # rootメインウィンドウのグリッドを 1x1 にする
     root.grid_rowconfigure(0, weight=1)
     root.grid_columnconfigure(0, weight=1)
-    #root.configure(bg='yellow2')
-
-    background = tk.PhotoImage(file = 'bg.png')
-    bg = tk.Label(root, Image = background)
-    bg.pack(fill="x")
+    root.configure(bg='yellow2')
 
 
     # メインフレームの作成と設置
