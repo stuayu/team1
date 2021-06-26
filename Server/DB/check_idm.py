@@ -29,8 +29,9 @@ def get_subject(teacher_id: str):
 
     temp = db.selectData(conn, selectSql_1)
     if len(temp) == 0:
-        raise HTTPException(status_code=401, detail="データベースに今日の日付が存在していません．もう一度確認してください．")
-        
+        raise HTTPException(
+            status_code=401, detail="データベースに今日の日付が存在していません．もう一度確認してください．")
+
     time_rule: str = temp[0][1]  # 時間割データ 例) Wed
     number: int = temp[0][2]  # 第何回の講義か
 
@@ -54,6 +55,8 @@ def get_subject(teacher_id: str):
 
     elif temp[0][4] < time <= temp[0][5]:
         attend = 0  # 遅刻とする
+    else:
+        attend = -1
 
     return subject, attend, number  # 講義ID,出席チェック結果,第何回目を返す
 
@@ -78,14 +81,12 @@ def create_attend(subject_id: str, student_idm: str, attend: int, number: int):
     elif attend == 0:
         attend_str = '遅刻'
     else:
-        raise HTTPException(status_code=401,detail='出席遅刻判定でエラーが発生しました．')
+        raise HTTPException(status_code=401, detail='出席遅刻判定でエラーが発生しました．')
 
     selectSql_2 = "INSERT INTO `student-attend` (`回数`,`講義ID`,`学籍番号`,`名前`,`出欠`) VALUES ('%d','%s','%s','%s','%s')" % (
         number, subject_id, temp[0][0], temp[0][1], attend_str)
 
     db.insertData(conn, selectSql_2)
-
-
 
 
 if __name__ == '__main__':
