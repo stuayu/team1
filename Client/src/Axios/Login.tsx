@@ -23,11 +23,7 @@ const App = () => {
   
 // if there's a user show the message below
   if (user) {
-<<<<<<< HEAD
-    return <div>{username} is loggged in</div>;
-=======
     //return <div>{user.name} is loggged in</div>;
->>>>>>> 93a5268f672dc6d7e5f1520af40aa7570155cbdc
   }
 
   // if there's no user, show the login form
