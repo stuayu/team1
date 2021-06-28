@@ -6,9 +6,10 @@ from starlette.middleware.cors import CORSMiddleware
 # DBフォルダにいるdb.pyの関数を読み込み．なお同じフォルダ内のファイルをインポートする場合は","で追加
 from DB import db, db_subject
 from routers import login
-from DB.db_subject import get_subject_teacher,get_subject_student
+from DB.db_subject import get_subject_teacher, get_subject_student
+from DB.check_idm import get_data
 
-# uvicorn main:app --reload --host 0.0.0.0
+# uvicorn main:app --reload
 app = FastAPI()
 # routers/login からインポートする
 app.include_router(login.router)
@@ -38,6 +39,10 @@ async def check_idm(teacher_id: str = Form(...), student_idm: str = Form(...)):
     """idmと教職員データを利用して
        戻り値に出席，遅刻を返す 
     """
+    get_data(teacher_id, student_idm)
+    
+    return {"message": "登録が完了しました．"}
+
 
 
 @app.get("/")
@@ -53,12 +58,12 @@ def post_root(testParam: TestParam):
     return testParam
 
 
-@app.get("/db/{table}")     # docsに表示されるURL
+@app.get("/db/{table}",tags=["DB"])     # docsに表示されるURL
 def get_table(table: str):  # table変数を文字列に定義
     """データベースにあるテーブル名を入力すると中身がそのまま帰ってくる機能です(危険)"""
     selectSql = 'Select * from %s' % table  # %sを変数 table に置き換える
     conn = db.createMysqlConnecter()    # データベースにログイン
-    return db.selectData(conn, selectSql)    # データベースから情報取得
+    return db.selectData(conn, selectSql)  # データベースから情報取得
 
 #ユーザ(先生)の教科を取得
 @app.get("/db/",tags=["Subject"])

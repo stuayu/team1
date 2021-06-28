@@ -7,9 +7,20 @@ const App = () => {
   const [user, setUser] = useState()
 
   const handleSubmit = async e => {
-    
+    e.preventDefault();
+    const user = { username: String, password: String };
+    // send the username and password to the server
+    const response = await axios.post(
+      "http://blogservice.herokuapp.com/api/login",
+      user
+    );
+    // set the state of the user
+    setUser(response.data)
+    // store the user in 
+    localStorage.setItem('user', response.data)
+    console.log(response.data)
   };
-
+  
 // if there's a user show the message below
   if (user) {
     //return <div>{user.name} is loggged in</div>;
@@ -38,5 +49,6 @@ const App = () => {
     </form>
   );
 };
+
 
 export default App;
