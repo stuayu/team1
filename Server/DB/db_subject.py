@@ -5,13 +5,13 @@ from login.auth_pro import get_current_user_from_token
 from DB import db
 
 
-#ログインした人(先生)の担当科目を取り出す関数
+#ログインした人(教員)の担当科目を取り出す関数
 def get_subject_teacher(token):
     user1 = get_current_user_from_token(token,'access_token') #ログインしたユーザを取得
     user2 = [] #DBからデータを収納
     subject =[] #担当教科を代入するためのタプル
 
-    selectSql = "Select * from teacher_subject" #teacher_subjectから先生のデータを取り出す
+    selectSql = "Select * from teacher_subject" #teacher_subjectから教員のデータを取り出す
     conn = db.createMysqlConnecter()
     user2 = db.selectData(conn, selectSql)
 
@@ -23,12 +23,12 @@ def get_subject_teacher(token):
 
     return subject
 
-#ログインした人(生徒)の履修教科を取り出す関数
+#ログインした人(学生)の履修教科を取り出す関数
 def get_subject_student(token):
     user1 = get_current_user_from_token(token,'access_token') #ログインしたユーザを取得
     user2 = [] #DBからデータを収納
     subject =[] #担当教科
-    selectSql = "Select * from team1" #team1から生徒のデータを取り出す
+    selectSql = "Select * from team1" #team1から学生のデータを取り出す
     conn = db.createMysqlConnecter()
     user2 = db.selectData(conn, selectSql)
 

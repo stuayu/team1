@@ -39,7 +39,7 @@ if __name__ == "__main__":
     label2_frame.place(x=365,y=40)
     entry1_frame.place(x=300,y=70)
     label3_frame.place(x=365,y=100)
-    entry2_frame.place(x=300,y=130)   
+    entry2_frame.place(x=300,y=130)
     button_change.place(x=350,y=250)
 
 
