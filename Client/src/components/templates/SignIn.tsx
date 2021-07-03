@@ -11,6 +11,7 @@ import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
+import axios from 'axios';
 
 /*
   *****コメントを読んで下さい*****
@@ -24,7 +25,6 @@ import Container from '@material-ui/core/Container';
   このログインページを開くには /login をつけてアクセスしてください．
   またこのテンプレートはMaterial UIのGithubから持ってきました．
   https://github.com/mui-org/material-ui/blob/next/docs/src/pages/getting-started/templates/sign-in/SignIn.tsx
-  渡辺
 */
 function Copyright(props: any) {
   return (
@@ -40,17 +40,50 @@ function Copyright(props: any) {
 }
 
 export default function SignIn() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     // eslint-disable-next-line no-console
     // ここのconsole.logによってF12を押すと表示されるコンソールに
     // ID: ---, password:----,が表示されていると思います．
     // ここに idとパスワードを送信するPOSTに機能を記述またはインポートしてサーバーと通信できるように
-    // 設定お願いします． 渡辺
+    // 設定お願いします．
+    // eslint-disable-next-line
+    var params = new URLSearchParams();
+    // dataはnullが含まれているためnullチェックを行うかつ文字列型にキャスト
+    const username = data.get('id')?.toString()
+    const password = data.get('password')?.toString()
+
+    if (username != null && password != null) {
+      params.append('username', username)
+      params.append('password', password)
+    }
+    // 変数定義
+    let res
+    try {
+      res = await axios.post('http://localhost:8000/token', params)
+    } catch(err){
+      res = err.response
+    }
+    // なにかしらエラーが発生した場合の処理(デバッグ)
+    if (res.status !== 200) {
+      console.log({
+        message: res.data.detail
+      })
+    }
+    else {
+      // ログインが成功したらマイページに飛ぶ
+      window.location.href = 'http://localhost:3000/'; // 通常の遷移
+    }
+    
+    // debug
+    console.log(res)
     console.log({
-      ID: data.get('id'),
-      password: data.get('password'),
+      status: res.status,
+    })
+    console.log({
+      ID: username,
+      password: password,
     });
   };
 
