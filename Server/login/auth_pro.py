@@ -12,7 +12,11 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 def authenticate(name: str, password: str):
     """パスワード認証し、userを返却"""
-    user = User.get(name=name)
+    # ユーザー名が登録されているかチェック
+    try:
+        user = User.get(name=name)
+    except:
+        raise HTTPException(status_code=401, detail='ユーザIDが正しくありません')
     dat = password
     hs = sha256(dat.encode()).hexdigest()
     # パスワードが違った際は例外(エラー)を発生させる
@@ -56,8 +60,9 @@ def create_user(_name: str, _password: str):
         raise HTTPException(status_code=401, detail='すでにユーザーは存在しています')
     User.create(name=_name, password=hs)
     return {'user': _name}
-    
-def password_renew(_name: str, old_password: str, new_password:str):
+
+
+def password_renew(_name: str, old_password: str, new_password: str):
     """パスワード変更"""
     old_dat = old_password
     new_dat = new_password
@@ -66,16 +71,15 @@ def password_renew(_name: str, old_password: str, new_password:str):
 
     if User.select().where(User.name != _name):
         raise HTTPException(status_code=401, detail='すでにユーザーは存在していません')
-    
+
     elif User.select().where(User.password != old_hs):
-        raise HTTPException(status_code=401, detail='パスワードが間違っていますもう一度確認してください')
-    
+        raise HTTPException(
+            status_code=401, detail='パスワードが間違っていますもう一度確認してください')
+
     else:
         User.update(password=new_hs).where(User.name == _name).execute()
-    
-    
-    return {'message':'新しいパスワードになりました'}
 
+    return {'message': '新しいパスワードになりました'}
 
 
 def get_current_user_from_token(token: str, token_type: str):
