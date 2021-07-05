@@ -2,6 +2,8 @@ import binascii
 import nfc
 from time import time
 import sys
+import requests
+from requests.api import request
 
 class MyCardReader(object):
 
@@ -24,8 +26,11 @@ if __name__ == '__main__':
         print("touch card:")
         cr.read_id()
         print("released")
-        print("IDm = {}".format(cr.idm))
+        #print("IDm = {}".format(cr.idm))
         tmp = cr.idm
+        #data引数に、postパラメータを渡す
+        payload = {'ID': 'value1','IDm':'value2'}
+        res =  requests.post('http://localhost:8000/db/student_all',data=payload)
         current_time = time()
         #print("time = %3.2f" % (current_time - start_time))
         if current_time - start_time > 10.0:
