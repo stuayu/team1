@@ -43,9 +43,6 @@ if __name__ == "__main__":
     button_change.place(x=350,y=250)
 
 
-
-
-
     #フレーム作成
     frame2 = ttk.Frame(root)
     frame2.grid(row=0, column=0, sticky="nsew", pady=20)
@@ -60,8 +57,5 @@ if __name__ == "__main__":
 
     # frameを前面にする
     frame.tkraise()
-
-
-    
 
     root.mainloop()
