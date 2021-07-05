@@ -30,16 +30,16 @@ if __name__ == "__main__":
     label1_frame = ttk.Label(frame, text = '教員IDと講義IDを入力してください',foreground='White',font=("20"),background='RoyalBlue2')
     label2_frame = ttk.Label(frame, text='教員ID',foreground='White',background='RoyalBlue2')
     entry1_frame = ttk.Entry(frame,width=30)
-    label3_frame = ttk.Label(frame,text='講義ID',foreground='White',background='RoyalBlue2')
-    entry2_frame = ttk.Entry(frame,width=30)
+    #label3_frame = ttk.Label(frame,text='講義ID',foreground='White',background='RoyalBlue2')
+    #entry2_frame = ttk.Entry(frame,width=30)
     button_change = ttk.Button(frame, text="OK", command=change_app)
 
     # 各種ウィジェットの設置(ピクセル単位で指定)
     label1_frame.place(x=240,y=0)
     label2_frame.place(x=365,y=40)
     entry1_frame.place(x=300,y=70)
-    label3_frame.place(x=365,y=100)
-    entry2_frame.place(x=300,y=130)
+    #label3_frame.place(x=365,y=100)
+    #entry2_frame.place(x=300,y=130)
     button_change.place(x=350,y=250)
 
 
