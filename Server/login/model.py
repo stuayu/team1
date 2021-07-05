@@ -18,6 +18,3 @@ class User(Model):
 
 db.create_tables([User])
 
-# ユーザ(先生)のデータ挿入
-# とりあえず一人だけ挿入
-#User.create(name='秋場紀明', password='akiba')
