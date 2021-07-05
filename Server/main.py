@@ -66,13 +66,15 @@ def get_table(table: str):  # table変数を文字列に定義
     return db.selectData(conn, selectSql)  # データベースから情報取得
 
 #ユーザ(先生)の教科を取得
-@app.get("/db/",tags=["Subject"])
-def get_db_subject(token):
+@app.post("/db/",tags=["Subject"])
+def get_db_subject(token: str=Form(...)):
+    """アクセストークンを利用して先生の担当科目を返す"""
     return get_subject_teacher(token)
-
-#ユーザ(生徒)の教科を取得
-@app.get("/db2/",tags=["Subject"])
-def get_db_subject(token):
+    
+#ユーザ(学生)の教科を取得
+@app.post("/db2/",tags=["Subject"])
+def get_db_subject(token: str = Form(...)):
+    """アクセストークンを利用して学生の担当科目を返す"""
     return get_subject_student(token)
 
 
