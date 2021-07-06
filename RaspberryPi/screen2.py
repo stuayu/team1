@@ -27,7 +27,7 @@ if __name__ == "__main__":
     frame.grid(row=0, column=0, sticky="nsew", pady=20)
 
     # 各種ウィジェットの作成
-    label1_frame = ttk.Label(frame, text = '教員IDと講義IDを入力してください',foreground='White',font=("20"),background='RoyalBlue2')
+    label1_frame = ttk.Label(frame, text = '教員IDを入力してください',foreground='White',font=("20"),background='RoyalBlue2')
     label2_frame = ttk.Label(frame, text='教員ID',foreground='White',background='RoyalBlue2')
     entry1_frame = ttk.Entry(frame,width=30)
     #label3_frame = ttk.Label(frame,text='講義ID',foreground='White',background='RoyalBlue2')
