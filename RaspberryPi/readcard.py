@@ -30,7 +30,8 @@ if __name__ == '__main__':
         tmp = cr.idm
         #data引数に、postパラメータを渡す
         payload = {'ID': 'value1','IDm':'value2'}
-        res =  requests.post('http://localhost:8000/db/student_all',data=payload)
+        res =  requests.post('http://localhost:8000/user/check',data=payload)
+        print("res.tex")
         current_time = time()
         #print("time = %3.2f" % (current_time - start_time))
         if current_time - start_time > 10.0:
