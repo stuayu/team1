@@ -45,10 +45,11 @@ def get_subject_student(token):
             t.append(subject[i]) #空白以外を代入
 
     sub = [] #教科名を代入するためのタプル
-    for i in range(len(t)):
-        if subject_data[i][0] == t[i]:
-            sub.append(subject_data[i][1])
-
+    for i in range(len(subject_data)):
+        for j in range(len(t)):
+            if subject_data[i][0] == t[j]: #講義名と講義IDが同じ場合
+                sub.append(subject_data[i][1]+","+t[j]) #subに講義名とそれに応じたIDを追加する(,は講義名とIDの区切り)。
+                
     return sub
 
 
