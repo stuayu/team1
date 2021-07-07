@@ -27,12 +27,12 @@ async def login(form: OAuth2PasswordRequestForm = Depends()):
     """トークン発行"""
     user = authenticate(form.username, form.password)
     token = create_tokens(user.id)
-    content = {"message": "Come to the dark side, we have cookies"}
-    response = JSONResponse(content=content)
-    response.set_cookie(key="access_token", value=token,httponly=True)
-    return response
+    #content = {"message": "Come to the dark side, we have cookies"}
+    #response = JSONResponse(content=content)
+    #response.set_cookie(key="access_token", value=token,httponly=False)
+    return token
     
-    return create_tokens(user.id)
+    #return create_tokens(user.id)
 
 
 @router.get("/refresh_token/", response_model=Token, tags=["login"])

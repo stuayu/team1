@@ -12,6 +12,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import axios from 'axios';
+//import { useState } from 'react';
 
 /*
   *****コメントを読んで下さい*****
@@ -73,7 +74,8 @@ export default function SignIn() {
     }
     else {
       // ログインが成功したらマイページに飛ぶ
-      window.location.href = 'http://localhost:3000/'; // 通常の遷移
+      localStorage.setItem('token',res.data.access_token) //localstrageにアクセストークンを保存
+      window.location.href = 'http://localhost:3000/'; // 通常の遷移 
     }
     
     // debug

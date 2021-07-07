@@ -49,8 +49,8 @@ def create_tokens(user_id: int):
     User.update(refresh_token=refresh_token).where(
         User.id == user_id).execute()
 
-    return access_token
-    #return {'access_token': access_token, 'refresh_token': refresh_token, 'token_type': 'bearer'}
+    #return access_token
+    return {'access_token': access_token, 'refresh_token': refresh_token, 'token_type': 'bearer'}
 
 
 def create_user(_name: str, _password: str):
