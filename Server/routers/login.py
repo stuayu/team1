@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, Form
 from pydantic import BaseModel
+from fastapi.responses import JSONResponse
 from fastapi.security import OAuth2PasswordRequestForm
 from login.auth_pro import get_current_user, get_current_user_with_refresh_token, create_tokens, authenticate, create_user, password_renew
 router = APIRouter()
@@ -21,10 +22,16 @@ class User(BaseModel):
         orm_mode = True
 
 
-@router.post("/token", response_model=Token, tags=["login"])
+@router.post("/token", tags=["login"])
 async def login(form: OAuth2PasswordRequestForm = Depends()):
     """トークン発行"""
     user = authenticate(form.username, form.password)
+    token = create_tokens(user.id)
+    content = {"message": "Come to the dark side, we have cookies"}
+    response = JSONResponse(content=content)
+    response.set_cookie(key="access_token", value=token,httponly=True)
+    return response
+    
     return create_tokens(user.id)
 
 
