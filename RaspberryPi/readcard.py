@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-import binascii
+# -*- coding: utf-8 -*-
 import binascii
 import nfc
 from time import time
