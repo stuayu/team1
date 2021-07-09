@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-import binascii
+import binascii
 import nfc
 from time import time
 import sys
