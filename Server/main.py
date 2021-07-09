@@ -65,7 +65,7 @@ def get_table(table: str):  # table変数を文字列に定義
     conn = db.createMysqlConnecter()    # データベースにログイン
     return db.selectData(conn, selectSql)  # データベースから情報取得
 
-#ユーザ(先生)の教科を取得
+#ユーザ(教員)の教科を取得
 @app.post("/db/",tags=["Subject"])
 def get_db_subject(token: str=Form(...)):
     """アクセストークンを利用して先生の担当科目を返す"""
