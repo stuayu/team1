@@ -9,13 +9,13 @@ router = APIRouter()
 
 
 # ユーザ(教員)の教科を取得
-@app.post("/db/", tags=["Subject"])
+@router.post("/db/", tags=["Subject"])
 def get_db_subject(token: str = Form(...)):
     """アクセストークンを利用して先生の担当科目を返す"""
     return get_subject_teacher(token)
 
 # ユーザ(学生)の教科を取得
-@app.post("/db2/", tags=["Subject"])
+@router.post("/db2/", tags=["Subject"])
 def get_db_subject(token: str = Form(...)):
     """アクセストークンを利用して学生の担当科目を返す"""
     return get_subject_student(token)
