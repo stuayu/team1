@@ -1,2 +1,1 @@
 requirements.txtにはインストールすべきパッケージが書かれています．
-pycryptdomeで暗号化復号化
