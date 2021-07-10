@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from "axios";
 import MaterialTable from 'material-table';
-import { Button } from '@material-ui/core';
  
 class Getpcinfo extends Component {
     constructor(props) {
@@ -24,7 +23,6 @@ class Getpcinfo extends Component {
         const data = results.data.content;        
         this.setState({
           info: data,
-          isLoading: false
         });
       });
     }
@@ -46,12 +44,8 @@ class Getpcinfo extends Component {
         paging: true
       }}
       />        
-      <Button variant="contained" color="primary" onClick={this.getData}>info get</Button>
     </div>
     )
   }
 }
-    
-  
-
 export default Getpcinfo
