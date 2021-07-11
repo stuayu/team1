@@ -19,5 +19,6 @@ conn = db.createMysqlConnecter()
 c = conn.cursor()
 c.execute(sql)
 
+
 f.close()
 
