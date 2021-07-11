@@ -1,12 +1,23 @@
 import csv
 import db
 
-selectSql = "Select * from student_all"
-conn = db.createMysqlConnecter()
-data = db.selectdata(conn,selectSql)
 
-with open('student_attendance.csv','a') as f:
-    w = csv.writer(f)
-    for i in range(len(data)):
-        w.writerow(data[i])
+f = open('student_attendance.csv','w')
+#w = csv.writer(f)
+
+#selectSql = "Select * from student_all" 
+#conn = db.createMysqlConnecter()
+#data = db.selectData(conn, selectSql)
+
+#for i in data:
+#    w.writerows(data)
+
+#f.close()
+
+sql = "SELECT * FROM student_all INTO OUTFILE’student_attendance.csv’ FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY ','"
+conn = db.createMysqlConnecter()
+c = conn.cursor()
+c.execute(sql)
+
+f.close()
 
