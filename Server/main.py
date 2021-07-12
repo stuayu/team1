@@ -1,5 +1,6 @@
 
 #from Server.DB.db_subject import get_subject_student
+#from Server.DB.db_csv import csv_create
 from fastapi import FastAPI, Depends, Form
 from pydantic import BaseModel
 from starlette.middleware.cors import CORSMiddleware
@@ -7,6 +8,7 @@ from starlette.middleware.cors import CORSMiddleware
 from DB import db, db_subject
 from routers import login, front
 from DB.check_idm import get_data
+from DB.db_csv import csv_create
 
 # uvicorn main:app --reload
 app = FastAPI()
@@ -63,3 +65,7 @@ def get_table(table: str):  # table変数を文字列に定義
     selectSql = 'Select * from %s' % table  # %sを変数 table に置き換える
     conn = db.createMysqlConnecter()    # データベースにログイン
     return db.selectData(conn, selectSql)  # データベースから情報取得
+
+@app.get("/csv/{table}",tags=["DB"])
+def get_csv():
+    return csv_create()
