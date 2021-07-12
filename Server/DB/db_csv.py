@@ -1,7 +1,6 @@
 import csv
 from DB import db
 
-
 def csv_create():
     f = open('student_attendance.csv','w') #csvファイルを作成する 
     w = csv.writer(f)
