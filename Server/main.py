@@ -66,6 +66,8 @@ def get_table(table: str):  # table変数を文字列に定義
     conn = db.createMysqlConnecter()    # データベースにログイン
     return db.selectData(conn, selectSql)  # データベースから情報取得
 
+
 @app.get("/csv/{table}",tags=["DB"])
 def get_csv():
+    """csvファイルを作成します"""
     return csv_create()
