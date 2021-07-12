@@ -17,7 +17,7 @@ def get_db_subject(token: str = Form(...)):
 # ユーザ(学生)の教科を取得
 @router.post("/db2/", tags=["Subject"])
 def get_db_subject(token: str = Form(...)):
-    """アクセストークンを利用して学生の担当科目を返す"""
+    """アクセストークンを利用して学生の履修科目を返す"""
     return get_subject_student(token)
 
 # 講義回数をJSONで返す
