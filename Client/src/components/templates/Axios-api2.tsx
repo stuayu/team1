@@ -15,7 +15,8 @@ var param = new URLSearchParams();
     }
 
  
-class Getpcinfo extends Component {
+class Getpcinfo extends Component <{},{info:[]}>
+{
     constructor(props) {
     super(props);
     this.state = {
