@@ -2,23 +2,17 @@ from fastapi import APIRouter, Depends, Form
 from pydantic import BaseModel
 from fastapi.responses import JSONResponse
 from fastapi.security import OAuth2PasswordRequestForm
-from DB.db_subject import get_subject_teacher, get_subject_student
+from DB.db_subject import get_subject
 from DB.db_front import get_number, print_attend
 
 router = APIRouter()
 
 
-# ユーザ(教員)の教科を取得
-@router.post("/db/", tags=["Subject"])
+# ユーザ(教員)やユーザ(学生)の教科を取得
+@router.post("/getSub/", tags=["Subject"])
 def get_db_subject(token: str = Form(...)):
-    """アクセストークンを利用して先生の担当科目を返す"""
-    return get_subject_teacher(token)
-
-# ユーザ(学生)の教科を取得
-@router.post("/db2/", tags=["Subject"])
-def get_db_subject(token: str = Form(...)):
-    """アクセストークンを利用して学生の担当科目を返す"""
-    return get_subject_student(token)
+    """アクセストークンを利用して先生の担当科目や学生の履修教科を返す"""
+    return get_subject(token)
 
 # 講義回数をJSONで返す
 @router.post("/number", tags=["Subject"])
