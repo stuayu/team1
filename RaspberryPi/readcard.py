@@ -5,6 +5,7 @@ from time import time
 import sys
 import requests
 from requests.api import request
+from RaspberryPi import screen2
 
 class MyCardReader(object):
 
@@ -29,7 +30,7 @@ if __name__ == '__main__':
         print("released")
         print("IDm = {}".format(cr.idm))
         IDm = cr.idm
-        ID = 'P001'
+        ID = 'entry1_frame.get()'
         #data引数に、postパラメータを渡す
         payload = {'ID': 'value1','IDm':'value2'}
         res =  requests.post('http://192.168.1.23:8000/user/check/',data=payload)
