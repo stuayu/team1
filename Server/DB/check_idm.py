@@ -24,7 +24,7 @@ def get_subject(teacher_id: str):
     time = "{}:{}".format(dt.hour, dt.minute)  # 取得した時間 (16:41)
     # time-rule テーブルを操作
     # %sを変数 date に置き換える
-    selectSql_1 = "Select `日付`, `時間割`,`回数` FROM `subject-rules2` WHERE  `日付`='%s'" % date
+    selectSql_1 = "Select `日付`, `時間割`,`回数` FROM `subject_rules2` WHERE  `日付`='%s'" % date
     conn = db.createMysqlConnecter()
 
     temp = db.selectData(conn, selectSql_1)
@@ -36,7 +36,7 @@ def get_subject(teacher_id: str):
     number: int = temp[0][2]  # 第何回の講義か
 
     # 受付開始時間以上遅刻限度以下かつ時間割と教員IDがあっている場合のみ実行される．
-    selectSql_2 = "Select `講義ID`,`時間割`,`教員ID`,`受付開始`,`出席限度`,`遅刻限度` FROM `time-rules` WHERE `時間割`='%s'&& `教員ID`='%s' && '%s' BETWEEN `受付開始` AND `遅刻限度`" % (
+    selectSql_2 = "Select `講義ID`,`時間割`,`教員ID`,`受付開始`,`出席限度`,`遅刻限度` FROM `time_rules` WHERE `時間割`='%s'&& `教員ID`='%s' && '%s' BETWEEN `受付開始` AND `遅刻限度`" % (
         time_rule, teacher_id, time)
 
     temp = db.selectData(conn, selectSql_2)
@@ -67,7 +67,7 @@ def create_attend(subject_id: str, student_idm: str, attend: int, number: int):
     """
     temp = []
     # 暫定的に 履修教科一覧が書かれているファイルを student-all としている．
-    selectSql_1 = "Select * FROM `student-all` WHERE `IDm`='%s' AND `%s`='%s'" % (
+    selectSql_1 = "Select * FROM `student_all` WHERE `IDm`='%s' AND `%s`='%s'" % (
         student_idm, subject_id, subject_id)
 
     conn = db.createMysqlConnecter()
@@ -83,7 +83,7 @@ def create_attend(subject_id: str, student_idm: str, attend: int, number: int):
     else:
         raise HTTPException(status_code=401, detail='出席遅刻判定でエラーが発生しました．')
 
-    selectSql_2 = "INSERT INTO `student-attend` (`回数`,`講義ID`,`学籍番号`,`名前`,`出欠`) VALUES ('%d','%s','%s','%s','%s')" % (
+    selectSql_2 = "INSERT INTO `student_attend` (`回数`,`講義ID`,`学籍番号`,`名前`,`出欠`) VALUES ('%d','%s','%s','%s','%s')" % (
         number, subject_id, temp[0][0], temp[0][1], attend_str)
 
     db.insertData(conn, selectSql_2)
