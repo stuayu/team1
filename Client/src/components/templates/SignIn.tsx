@@ -75,7 +75,7 @@ export default function SignIn() {
     else {
       // ログインが成功したらマイページに飛ぶ
       localStorage.setItem('token',res.data.access_token) //localstrageにアクセストークンを保存
-    window.location.href = 'http://localhost:8000/db/'; // 通常の遷移 
+      window.location.href = 'http://localhost:8000/db/'; // 通常の遷移 
     }
     
     // debug

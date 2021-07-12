@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from "axios";
 import MaterialTable from 'material-table';
 
+
 let res
 var param = new URLSearchParams();
       const token = localStorage.getItem('token')?.toString()
@@ -9,10 +10,11 @@ var param = new URLSearchParams();
         param.append('token', token)
       }
     try {
-      res = await axios.post('http://localhost:8000/db2', param)
+      res = await axios.post('http://localhost:8000/db/', param)
     } catch(err){
       res = err.response
     }
+
 
  
 class Getpcinfo extends Component <{},{info:[]}>
@@ -27,7 +29,7 @@ class Getpcinfo extends Component <{},{info:[]}>
  
   getData() {
     axios
-      .get('http://127.0.0.1:8000/db2/',{
+      .get('http://127.0.0.1:8000/db/',{
         headers: {
           accept: 'application/json'
         }

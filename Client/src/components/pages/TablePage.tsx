@@ -1,6 +1,5 @@
-
 import React from "react";
-import Table from '../templates/Axios-api2';
+import Table from '../templates/Axios-api';
 const TablePage: React.FC = () => {
   return (
   <Table></Table>
