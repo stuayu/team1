@@ -1,13 +1,25 @@
 import React, { Component } from 'react';
 import axios from "axios";
 import MaterialTable from 'material-table';
+
+let res
+var param = new URLSearchParams();
+      const token = localStorage.getItem('token')?.toString()
+      if (token != null) {
+        param.append('token', token)
+      }
+    try {
+      res = await axios.post('http://localhost:8000/db', param)
+    } catch(err){
+      res = err.response
+    }
+
  
 class Getpcinfo extends Component {
     constructor(props) {
     super(props);
     this.state = {
       info: [],
-      isLoading: true
     };
     this.getData = this.getData.bind(this);
   }
@@ -32,7 +44,8 @@ class Getpcinfo extends Component {
     ]
     
     return (
-    <div>                           
+      
+    <div>                             
       <MaterialTable
       title="科目"
       columns={columns}
@@ -48,4 +61,5 @@ class Getpcinfo extends Component {
     )
   }
 }
+
 export default Getpcinfo
