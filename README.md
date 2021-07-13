@@ -27,6 +27,8 @@ ___
   pip install -r requirements.txt
   uvicorn main:app
   ```
+  サーバーが起動できないときはMariaDBがインストールされていることを確認してください。  
+  また、アクセス権限を[db.json](./Server/DB/db.json)に設定した値と同じか確かめてください。
 ## システム開発について
 * 開発する機能については順次[Project](https://github.com/stuayu/team1/projects)のToDoリストに記載し，必要があれば機能に応じて[Issue](https://github.com/stuayu/team1/issues)で議論を行う．
 * 開発の流れとしては，まずはサーバーをチームメンバーで完成させる．その後，ウェブによるGUIの作成とラズパイでカードの読み取り，出欠確認の機能の実装を進める．

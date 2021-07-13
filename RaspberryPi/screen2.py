@@ -35,7 +35,7 @@ if __name__ == "__main__":
     button_change = ttk.Button(frame, text="OK", command=change_app)
 
     # 各種ウィジェットの設置(ピクセル単位で指定)
-    label1_frame.place(x=240,y=0)
+    label1_frame.place(x=250,y=0)
     label2_frame.place(x=365,y=40)
     entry1_frame.place(x=300,y=70)
     #label3_frame.place(x=365,y=100)

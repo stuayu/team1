@@ -75,24 +75,7 @@ export default function SignIn() {
     else {
       // ログインが成功したらマイページに飛ぶ
       localStorage.setItem('token',res.data.access_token) //localstrageにアクセストークンを保存
-      var param = new URLSearchParams();
-      const token = localStorage.getItem('token')?.toString()
-      if (token != null) {
-        param.append('token', token)
-      }
-      localStorage.getItem('token');
-    try {
-      res = await axios.post('http://localhost:8000/db', param)
-    } catch(err){
-      res = err.response
-    }
-    // なにかしらエラーが発生した場合の処理(デバッグ)
-    if (res.status !== 200) {
-      console.log({
-        message: res.data.detail
-      })
-    }
-    window.location.href = 'http://localhost:3000/'; // 通常の遷移 
+    window.location.href = 'http://localhost:8000/db/'; // 通常の遷移 
     }
     
     // debug
