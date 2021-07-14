@@ -1,8 +1,10 @@
 import csv
 from DB import db
+from fastapi.responses import StreamingResponse
 
 def csv_create():
-    f = open('student_attendance.csv','w') #csvファイルを作成する 
+    path = 'student_attendance.csv'
+    f = open(path, 'w', encoding='utf-8')  # csvファイルを作成する
     w = csv.writer(f)
 
     #student_allからデータを取り出す
@@ -10,14 +12,10 @@ def csv_create():
     conn = db.createMysqlConnecter()
     data = db.selectData(conn, selectSql)
 
-    #取り出したデータの長さ分だけ繰り返す
-    for i in range(len(data)):
-        w.writerows(data) #データを書き込む
-        break
+    w.writerows(data)  # データを書き込む
 
     f.close()
 
-    return print('csv作成')
-
-
-
+    f = open(path, mode="r", encoding='utf-8')
+    #return print('csv作成')
+    return StreamingResponse(f, media_type="text/csv")
