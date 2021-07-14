@@ -1,11 +1,10 @@
-# -*- coding: utf-8 -*-
 import binascii
 import nfc
 from time import time
 import sys
 import requests
 from requests.api import request
-from RaspberryPi import screen2
+import screen2
 
 class MyCardReader(object):
 
