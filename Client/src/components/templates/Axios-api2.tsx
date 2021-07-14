@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from "axios";
 import MaterialTable from 'material-table';
-
 let res
 var param = new URLSearchParams();
       const token = localStorage.getItem('token')?.toString()
@@ -9,7 +8,7 @@ var param = new URLSearchParams();
         param.append('token', token)
       }
     try {
-      res = await axios.post('http://localhost:8000/db', param)
+      res = await axios.post('http://localhost:8000/getSub/', param)
     } catch(err){
       res = err.response
     }
@@ -21,13 +20,14 @@ class Getpcinfo extends Component <{},{info:[]}>
     super(props);
     this.state = {
       info: [],
+      isLoading: true
     };
     this.getData = this.getData.bind(this);
   }
  
   getData() {
     axios
-      .get('http://127.0.0.1:8000/db/',{
+      .get('http://127.0.0.1:8000/getSub/',{
         headers: {
           accept: 'application/json'
         }
@@ -36,6 +36,7 @@ class Getpcinfo extends Component <{},{info:[]}>
         const data = results.data.content;        
         this.setState({
           info: data,
+          isLoading: false
         });
       });
     }
@@ -44,13 +45,13 @@ class Getpcinfo extends Component <{},{info:[]}>
       { title: '科目', field: 'id' },     
     ]
     
-    return (
-      
-    <div>                             
+    return(
+    <div>                           
       <MaterialTable
       title="科目"
       columns={columns}
       data={this.state.info}
+      isLoading={this.state.isLoading}
       options={{
         pageSize: 10,
         pageSizeOptions: [10, 20,50, 100, 200, 300, 400 ,500],
@@ -59,8 +60,8 @@ class Getpcinfo extends Component <{},{info:[]}>
       }}
       />        
     </div>
-    )
-  }
+  )
+}
 }
 
 export default Getpcinfo
