@@ -4,7 +4,7 @@ from time import time
 import sys
 import requests
 from requests.api import request
-import screen2
+from requests.models import Response
 
 class MyCardReader(object):
 
@@ -28,12 +28,14 @@ if __name__ == '__main__':
         cr.read_id()
         print("released")
         print("IDm = {}".format(cr.idm))
-        IDm = cr.idm
+        IDm = 'cr.idm'
         ID = 'entry1_frame.get()'
         #data引数に、postパラメータを渡す
-        payload = {'ID': 'value1','IDm':'value2'}
-        res =  requests.post('http://192.168.1.23:8000/user/check/',data=payload)
-        print("res.tex")
+        payload = {'teacher_id': ID,'student_idm':cr.idm}
+        header = {'accept': 'application/json','Content-Type': 'application/x-www-form-urlencoded'}
+        res =  requests.post('http://localhost:8000/user/check/',data=payload,headers=header)
+        json_data = res.json()
+        print(json_data['detail'])
         current_time = time()
         #print("time = %3.2f" % (current_time - start_time))
         if current_time - start_time > 10.0:
