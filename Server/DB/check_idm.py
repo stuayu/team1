@@ -8,9 +8,11 @@ def get_data(teacher_id: str, student_idm: str):
     """
     subject_id, attend, number = get_subject(teacher_id)
 
-    create_attend(subject_id, student_idm, attend)
+    attend = create_attend(subject_id, student_idm, attend)
 
-    return 0
+    message = attend+"と正常に登録しました。"
+
+    return {'message': message}
 
 
 def get_subject(teacher_id: str):
@@ -87,6 +89,8 @@ def create_attend(subject_id: str, student_idm: str, attend: int, number: int):
         number, subject_id, temp[0][0], temp[0][1], attend_str)
 
     db.insertData(conn, selectSql_2)
+
+    return attend_str
 
 
 if __name__ == '__main__':
