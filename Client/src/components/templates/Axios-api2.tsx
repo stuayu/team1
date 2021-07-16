@@ -8,18 +8,22 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import axios from 'axios';
 
-let res
-var param = new URLSearchParams();
+async function postdata() {
+  let res
+  var param = new URLSearchParams();
       const token = localStorage.getItem('token')?.toString()
       if (token != null) {
         param.append('token', token)
       }
     try {
-      res = axios.post('http://localhost:8000/getSub/', param)
-      console.log(res)
+      res = await axios.post('http://localhost:4000/getSub/', param)
+      console.log(res.data.id)
+      console.log(res.data.sub_name)
     } catch(err){
       res = err.response
     }
+}
+postdata();
 
 function createData(
   name: string,
