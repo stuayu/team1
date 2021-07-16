@@ -1,6 +1,13 @@
-import React, { Component } from 'react';
-import axios from "axios";
-import MaterialTable from 'material-table';
+import * as React from 'react';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import axios from 'axios';
+
 let res
 var param = new URLSearchParams();
       const token = localStorage.getItem('token')?.toString()
@@ -8,60 +15,60 @@ var param = new URLSearchParams();
         param.append('token', token)
       }
     try {
-      res = await axios.post('http://localhost:8000/getSub/', param)
+      res = axios.post('http://localhost:8000/getSub/', param)
+      console.log(res)
     } catch(err){
       res = err.response
     }
 
- 
-class Getpcinfo extends Component <{},{info:[]}>
-{
-    constructor(props) {
-    super(props);
-    this.state = {
-      info: [],
-      isLoading: true
-    };
-    this.getData = this.getData.bind(this);
-  }
- 
-  getData() {
-    axios
-      .get('http://127.0.0.1:8000/getSub/',{
-        headers: {
-          accept: 'application/json'
-        }
-      })
-      .then(results => {
-        const data = results.data.content;        
-        this.setState({
-          info: data,
-          isLoading: false
-        });
-      });
-    }
-  render() {
-    const columns = [
-      { title: '科目', field: 'id' },     
-    ]
-    
-    return(
-    <div>                           
-      <MaterialTable
-      title="科目"
-      columns={columns}
-      data={this.state.info}
-      isLoading={this.state.isLoading}
-      options={{
-        pageSize: 10,
-        pageSizeOptions: [10, 20,50, 100, 200, 300, 400 ,500],
-        toolbar: true,
-        paging: true
-      }}
-      />        
-    </div>
-  )
-}
+function createData(
+  name: string,
+  calories: number,
+  fat: number,
+  carbs: number,
+  protein: number,
+) {
+  return { name, calories, fat, carbs, protein };
 }
 
-export default Getpcinfo
+const rows = [
+  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
+  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
+  createData('Eclair', 262, 16.0, 24, 6.0),
+  createData('Cupcake', 305, 3.7, 67, 4.3),
+  createData('Gingerbread', 356, 16.0, 49, 3.9),
+];
+
+export default function BasicTable() {
+  return (
+    <TableContainer component={Paper}>
+      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell>Dessert (100g serving)</TableCell>
+            <TableCell align="right">Calories</TableCell>
+            <TableCell align="right">Fat&nbsp;(g)</TableCell>
+            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
+            <TableCell align="right">Protein&nbsp;(g)</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {rows.map((row) => (
+            <TableRow
+              key={row.name}
+              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+            >
+              <TableCell component="th" scope="row">
+                {row.name}
+              </TableCell>
+              <TableCell align="right">{row.calories}</TableCell>
+              <TableCell align="right">{row.fat}</TableCell>
+              <TableCell align="right">{row.carbs}</TableCell>
+              <TableCell align="right">{row.protein}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  );
+}

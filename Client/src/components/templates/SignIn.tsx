@@ -63,6 +63,7 @@ export default function SignIn() {
     let res
     try {
       res = await axios.post('http://localhost:8000/token', params)
+      console.log(res)
     } catch(err){
       res = err.response
     }
@@ -74,8 +75,8 @@ export default function SignIn() {
     }
     else {
       // ログインが成功したらマイページに飛ぶ
-      localStorage.setItem('token',res.data.access_token) //localstrageにアクセストークンを保存
-    window.location.href = 'http://localhost:8000/getSub/'; // 通常の遷移 
+      localStorage.setItem('token', res.data.access_token) //localstrageにアクセストークンを保存
+    　/*window.location.href = 'http://localhost:3000/list/'; // 通常の遷移 */
     }
     
     // debug
