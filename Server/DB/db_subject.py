@@ -50,15 +50,17 @@ def get_subject(token):
         for i in range(len(subject)):
             if len(subject[i]) > 0:  # 空白以外
                 t.append(subject[i])  # 空白以外を代入
-        print(t)
+                
         sub = []  # 教科名を代入するためのタプル
         for i in range(len(subject_data)):
             for j in range(len(t)):
                 if subject_data[i][0] == t[j]:  # 講義名と講義IDが同じ場合
                     # subに講義名とそれに応じたIDを追加する(,は講義名とIDの区切り)。
-                    sub.append(subject_data[i][1] + "," + t[j])
+                    #  + "," + t[j]
+                    sub.append(subject_data[i][1])
+        sub_json = {'id': t, 'sub_name': sub}
 
-        return sub
+        return sub_json
 
     else:
         return {"message": "不明なエラーが発生しました"}
