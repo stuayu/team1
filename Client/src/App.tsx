@@ -12,8 +12,7 @@ const App: React.FC = () => {
   return (
     <Router>
       <Switch>
-        
-        <Route path="/list" component={TablePage} exact />
+        <Route path="/list" component={TablePage} exact/>
         <Route path="/login" component={LoginPage} exact />
       </Switch>
     </Router>

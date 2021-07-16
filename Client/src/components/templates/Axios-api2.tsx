@@ -9,40 +9,40 @@ import Paper from '@material-ui/core/Paper';
 import axios from 'axios';
 
 let res
-async function postdata() {
-  var param = new URLSearchParams();
-      const token = localStorage.getItem('token')?.toString()
-      if (token != null) {
-        param.append('token', token)
-      }
+  postdata()
+  async function postdata() {
+    var param = new URLSearchParams();
+    const token = localStorage.getItem('token')?.toString()
+    if (token != null) {
+      param.append('token', token)
+    }
     try {
-      res = await axios.post('http://localhost:4000/getSub/', param)
+      res = await axios.post('http://localhost:8000/getSub/', param)
       console.log(res)
       await createTable()
     } catch(err){
       res = err.response
     }
-}
-postdata();
-interface Data {
-  id: string;
-  sub_name: string;
-}
-
-function createData(
-  id: string,
-  sub_name: string,
-): Data {
-  return { id, sub_name };
-}
-
-const rows: Data[] = [];
-function createTable() {
-  for (let i = 0; i < res.data.id.length; i += 1) {
-  rows.push(createData( res.data.id[i], res.data.sub_name[i]));
   }
-}
+  interface Data {
+    id: string;
+    sub_name: string;
+  }
 
+  function createData(
+    id: string,
+    sub_name: string,
+  ): Data {
+    return { id, sub_name };
+  }
+
+  const rows: Data[] = [];
+
+  function createTable() {
+    for (let i = 0; i < res.data.id.length; i += 1) {
+    rows.push(createData( res.data.id[i], res.data.sub_name[i]));
+    }
+  }
 
 export default function BasicTable() {
   return (
