@@ -8,13 +8,36 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import axios from 'axios';
 
-const DATA = 'http://localhost:8000/getSub/'
+// 解説(https://qiita.com/akinov/items/26a7fc36d7c0045dd2db)
+console.log(window.location.search.slice(1))
+
+const DATA1 = 'http://localhost:8000/number/'
+const DATA2 = 'http://localhost:8000/attend/'
 // トークンをローカルストレージから取得する
-var param = new URLSearchParams();
-const token = localStorage.getItem('token')?.toString()
-if (token != null) {
-  param.append('token', token)
+var param1 = new URLSearchParams();
+var param2 = new URLSearchParams();
+function getUrlQueries() {
+    var queryStr = window.location.search.slice(1) //文頭?を削除
+    var queries = {};
+
+    // クエリがない場合は空のオブジェクトを返す
+  if (!queryStr) {
+    return queries;
+  }
+
+  // クエリ文字列を & で分割して処理
+  queryStr.split('&').forEach(function(queryStr) {
+    // = で分割してkey,valueをオブジェクトに格納
+    var queryArr = queryStr.split('=');
+    queries[queryArr[0]] = queryArr[1];
+  });
+
+  return queries;
 }
+var queries=getUrlQueries()
+console.log(queries['id'])
+param1.append('subject_id', queries['id'])
+
 interface Data {
   id: string;
   sub_name: string;
@@ -42,9 +65,10 @@ export default function BasicTable() {
   //非同期でサーバーからデータを取得
   const postdata = async () => {
     try {
-      const res = await axios.post(DATA, param);
-      setId(res.data.id)
-      setSub_name(res.data.sub_name)
+        const res1 = await axios.post(DATA1, param1);
+        const res2 = await axios.post(DATA2, param2);
+        console.log(res1)
+        console.log(res2)
     } catch (error) {
       console.error(error);
     }
