@@ -10,6 +10,7 @@ def get_subject(token):
     user1 = get_current_user_from_token(token, 'access_token')  # ログインしたユーザを取得
     teacher = []  # DBからデータを収納
     subject = []  # 担当教科を代入するためのタプル
+    subjectid = []
 
     selectSql_2 = "Select `ID` FROM `teacher_subject`"  # 　教員ID取得
 
@@ -29,10 +30,13 @@ def get_subject(token):
         for i in range(len(teacher)):  # teacherの長さの分だけ繰り返す
             if user1.name == teacher[i][0]:  # ログインした人の名前とDBから取得したデータからユーザを探す
                 subject.append(teacher[i][4])  # 履修教科を取得
-                if teacher[i][5] != None:  # 2つめの科目がある場合追加する
-                    subject.append(teacher[i][5])
+                subjectid.append(teacher[i][5])
+                if teacher[i][6] != None:  # 2つめの科目がある場合追加する
+                    subject.append(teacher[i][6])
+                    subjectid.append(teacher[i][7])
+        subject_json = {'id':subjectid, 'sub_name':subject}
 
-        return subject
+        return subject_json
 
     elif key == 0:
         selectSql = "Select * from student_all"  # student_allから学生のデータを取り出す

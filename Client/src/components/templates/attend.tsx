@@ -11,11 +11,15 @@ import axios from 'axios';
 // 解説(https://qiita.com/akinov/items/26a7fc36d7c0045dd2db)
 console.log(window.location.search.slice(1))
 
-const DATA1 = 'http://localhost:8000/number/'
-const DATA2 = 'http://localhost:8000/attend/'
+
+const DATA = 'http://localhost:8000/attend/'
 // トークンをローカルストレージから取得する
 var param1 = new URLSearchParams();
-var param2 = new URLSearchParams();
+const token = localStorage.getItem('token')?.toString()
+if (token != null) {
+  param1.append('token', token)
+}
+
 function getUrlQueries() {
     var queryStr = window.location.search.slice(1) //文頭?を削除
     var queries = {};
@@ -39,23 +43,29 @@ console.log(queries['id'])
 param1.append('subject_id', queries['id'])
 
 interface Data {
-  id: string;
-  sub_name: string;
+  student_id: string,
+  name: string,
+  attend: string,
+  num: number,
 }
 
 function createData(
-  id: string,
-  sub_name: string,
+  student_id: string,
+  name: string,
+  attend: string,
+  num: number,
 ): Data {
-  return { id, sub_name };
+  return { student_id, name, attend, num };
 }
 
 const rows: Data[] = [];
 
 export default function BasicTable() {
   
-  const [Id, setId] = React.useState([]);
-  const [Sub_name, setSub_name] = React.useState([]);
+  const [student_id, setId] = React.useState([]);
+  const [name, setSub_name] = React.useState([]);
+  const [num, setSub_number] = React.useState([]);
+  const [attend, setAttend] = React.useState([]);
 
   // 参考ページ(https://qiita.com/Kouichi_Itagaki/items/c8e05f084fe88a086100)
   React.useEffect(() => {
@@ -65,47 +75,54 @@ export default function BasicTable() {
   //非同期でサーバーからデータを取得
   const postdata = async () => {
     try {
-        const res1 = await axios.post(DATA1, param1);
-        const res2 = await axios.post(DATA2, param2);
+        const res1 = await axios.post(DATA, param1);
+        //console.log(res1)
         console.log(res1)
-        console.log(res2)
+        console.log(res1.data)
+        console.log(res1.data.student_id)
+
+        setSub_name(res1.data.name)
+        setSub_number(res1.data.num)
+        setAttend(res1.data.attend)
+        setId(res1.data.student_id)
+
+
     } catch (error) {
       console.error(error);
     }
   };
 
   function CreateTable() {
+    console.log(student_id.length)
     rows.length = 0; //配列内をリセット(変な値が残ることを阻止する)
-    for (let i = 0; i < Id.length; i += 1) {
-    rows.push(createData(Id[i], Sub_name[i]));
+    for (let i = 0; i < student_id.length; i += 1) {
+    rows.push(createData(student_id[i], name[i], attend[i], num[i]));
     }
   }
   CreateTable();
-  function handleClick(event,id){
-    console.log(id)
-    /*window.location.href = "http://localhost:3000/attend?id=" + id ; // 通常の遷移 */
-    //console.log(event)
-  }
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>科目ID</TableCell>
-            <TableCell>科目名</TableCell>
+            <TableCell>学籍番号</TableCell>
+            <TableCell>講義回数</TableCell>
+            <TableCell>名前</TableCell>
+            <TableCell>出席</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {rows.map((row) => (
             <TableRow
-              onClick={event => handleClick(event,row.id)}
-              key={row.id}
+              key={row.student_id}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
+              >
               <TableCell component="th" scope="row">
-                {row.id}
+                {row.student_id}
               </TableCell>
-              <TableCell>{row.sub_name}</TableCell>
+              <TableCell>{row.num}</TableCell>
+              <TableCell>{row.name}</TableCell>
+              <TableCell>{row.attend}</TableCell>
             </TableRow>
           ))}
         </TableBody>

@@ -43,6 +43,7 @@ export default function BasicTable() {
   const postdata = async () => {
     try {
       const res = await axios.post(DATA, param);
+      console.log(res.data.id)
       setId(res.data.id)
       setSub_name(res.data.sub_name)
     } catch (error) {
@@ -59,7 +60,7 @@ export default function BasicTable() {
   CreateTable();
   function handleClick(event,id){
     console.log(id)
-    /*window.location.href = "http://localhost:3000/attend?id=" + id ; // 通常の遷移 */
+    window.location.href = "http://localhost:3000/attend?id=" + id ; // 通常の遷移 
     //console.log(event)
   }
   return (
