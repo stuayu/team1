@@ -7,6 +7,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import axios from 'axios';
+import Graph from "./graph";
 
 // 解説(https://qiita.com/akinov/items/26a7fc36d7c0045dd2db)
 console.log(window.location.search.slice(1))
