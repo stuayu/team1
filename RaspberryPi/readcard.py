@@ -41,7 +41,8 @@ def ReadCard_Post(teacher_id:str):
         #print("time = %3.2f" % (current_time - start_time))
         if current_time - start_time > 10.0:
             sys.exit()
-            return json_data['detail']
+        return json_data['detail']
+        
 
 if __name__ == '__main__':
     id = 'P001'
