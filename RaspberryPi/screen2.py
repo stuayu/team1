@@ -12,6 +12,7 @@ def change_main():
     frame.tkraise()
 
 def ReadCard(event):
+    print(teacher_id)
     message = readcard.ReadCard_Post(teacher_id)
     label.config(text=message)
 
@@ -37,6 +38,7 @@ if __name__ == "__main__":
         frame, text='教員ID', foreground='White', background='RoyalBlue2')
     entry1_frame = ttk.Entry(frame, width=30)
     teacher_id = entry1_frame.get()
+    print(teacher_id)
     #label3_frame = ttk.Label(frame,text='講義ID',foreground='White',background='RoyalBlue2')
     #entry2_frame = ttk.Entry(frame,width=30)
     button_change = ttk.Button(frame, text="OK", command=change_app)
@@ -56,7 +58,7 @@ if __name__ == "__main__":
     # 各種ウィジェットの作成
     label1_frame2 = ttk.Label(
         frame2, text='カードを読み込むには実行ボタンを押してください', foreground='RoyalBlue3', font=("20"))
-    button_start = ttk.Button(frame2, text="実行", command=change_main)
+    button_start = ttk.Button(frame2, text="実行")
 
     # Label (新規追加)
     label = ttk.Label(frame2, width=18)
@@ -68,8 +70,9 @@ if __name__ == "__main__":
     button_change = ttk.Button(frame2, text="戻る", command=change_main)
 
     # 各種ウィジェットの設置
-    label1_frame2.pack()
-    button_change.pack()
+    label1_frame2.grid()
+    button_start.grid()
+    button_change.grid()
 
     # frameを前面にする
     frame.tkraise()
