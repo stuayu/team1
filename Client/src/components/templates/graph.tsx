@@ -1,5 +1,5 @@
 import React from "react"
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,} from 'recharts';
 import axios from 'axios';
 
 const DATA = 'http://localhost:8000/attend/'
@@ -16,8 +16,6 @@ param1.append('subject_id','F1')
 
 export default function Graph() {
   const [student_id, setId] = React.useState([]);
-  const [name, setSub_name] = React.useState([]);
-  const [num, setSub_number] = React.useState([]);
   const [attend, setAttend] = React.useState([]);
   
   React.useEffect(() => {
@@ -27,8 +25,6 @@ export default function Graph() {
   const postdata = async () => {
     try {
         const res1 = await axios.post(DATA, param1);
-        setSub_name(res1.data.name)
-        setSub_number(res1.data.num)
         setAttend(res1.data.attend)
         setId(res1.data.student_id)
     } catch (error) {
@@ -36,36 +32,55 @@ export default function Graph() {
     }
   };
 
-  let nnnka: number = 0;
-  let nanka2: number = 0;
+  let name_data:string[] = [];
+  let attend_data: number[] = [];
+  let late_data: number[] = [];
+  let attend_tmp: number = 0;
+  let late_tmp: number = 0;
   let num_tmp: number = 0;
-  for(let id of student_id){
-    console.log(id);
-    let iD = [];
+  let index_tmp: number = 0;
+  let tmp: number = 0;
 
-    let index:number = student_id.indexOf(id);
-    console.log(index);
-    console.log(nanka2);
-    console.log(attend[index]);
+  for(let id of student_id){
+    //console.log(id);
+
+    let index: number = student_id.indexOf(id);
+    if (index_tmp !== index) {
+      tmp += 1;
+      index_tmp = index;
+    }
+    //console.log(index);
+    //console.log(late_data);
+    //console.log(attend[index]);
 
     if(index < 0) continue;
-
     switch(attend[num_tmp]){
-      case '出席': nnnka++; break;
-      case '遅刻': nanka2++; break;
+      case '出席': attend_tmp++; break;
+      case '遅刻': late_tmp++; break;
     }
+    attend_data[tmp] = attend_tmp;
+    late_data[tmp] = late_tmp;
+    name_data[tmp] = id;
+    console.log(attend_tmp);
+    console.log(late_tmp);
+    console.log(id)
+    console.log(tmp);
     num_tmp += 1; 
   }
 
+  let data;
+  for (let j = 0; j < tmp; j++){
+    let demo = [
+      {
+        name: name_data[j],
+        att: attend_data[j],
+        seq: late_data[j],
+      }
+    ];
+    console.log(demo)
+    data.push(demo)
+  }
   
-  const data = [
-    {
-      name : 'S001',
-      att : nnnka,
-      seq : nanka2,
-      
-    }
-  ]
 
     return (
       <BarChart
