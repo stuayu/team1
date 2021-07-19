@@ -17,7 +17,7 @@ def ReadCard(event):
 
 def getTextInput():
     global teacher_id
-    teacher_id = entry1_frame.get("1.0", "end")
+    teacher_id = entry1_frame.get()
     print(teacher_id)
 
 if __name__ == "__main__":
@@ -45,7 +45,7 @@ if __name__ == "__main__":
     #label3_frame = ttk.Label(frame,text='講義ID',foreground='White',background='RoyalBlue2')
     #entry2_frame = ttk.Entry(frame,width=30)
     teacher_id:str
-    button_change = ttk.Button(frame, text="OK", command=lambda:[change_app,getTextInput])
+    button_change = ttk.Button(frame, text="OK", command=lambda:[change_app(),getTextInput()])
     # クリックしたらデータ取得
     # 各種ウィジェットの設置(ピクセル単位で指定)
     label1_frame.place(x=250, y=0)
@@ -74,9 +74,9 @@ if __name__ == "__main__":
     button_change = ttk.Button(frame2, text="戻る", command=change_main)
 
     # 各種ウィジェットの設置
-    label1_frame2.grid()
-    button_start.grid()
-    button_change.grid()
+    label1_frame2.grid(x=365, y=40)
+    button_start.grid(x=300, y=70)
+    button_change.grid(x=350, y=250)
 
     # frameを前面にする
     frame.tkraise()
