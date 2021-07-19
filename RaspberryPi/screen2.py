@@ -11,6 +11,9 @@ def change_app():
 def change_main():
     frame.tkraise()
 
+def ReadCard(event):
+    message = readcard.ReadCard_Post(teacher_id)
+    label.config(text=message)
 
 if __name__ == "__main__":
     # rootメインウィンドウの設定
@@ -60,7 +63,7 @@ if __name__ == "__main__":
     label.grid(row=1, column=0, columnspan=2)
 
     # 結果表示
-    button_start.bind("<Button-1>", label.config(text=readcard.ReadCard_Post(teacher_id)))
+    button_start.bind("<Button-1>", ReadCard)
 
     button_change = ttk.Button(frame2, text="戻る", command=change_main)
 
