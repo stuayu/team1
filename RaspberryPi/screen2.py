@@ -7,7 +7,6 @@ import readcard
 def change_app():
     frame2.tkraise()
 
-
 def change_main():
     frame.tkraise()
 
@@ -18,7 +17,7 @@ def ReadCard(event):
 def getTextInput():
     global teacher_id
     teacher_id = entry1_frame.get()
-    print(teacher_id)
+    #print(teacher_id)
 
 if __name__ == "__main__":
     # rootメインウィンドウの設定
@@ -65,8 +64,8 @@ if __name__ == "__main__":
     button_start = ttk.Button(frame2, text="実行")
 
     # Label (新規追加)
-    label = ttk.Label(frame2, width=18)
-    label.grid(row=1, column=0, columnspan=2)
+    label = ttk.Label(frame2, font="20", justify="center")
+    label.pack()
 
     # 結果表示
     button_start.bind("<Button-1>", ReadCard)
@@ -74,9 +73,9 @@ if __name__ == "__main__":
     button_change = ttk.Button(frame2, text="戻る", command=change_main)
 
     # 各種ウィジェットの設置
-    label1_frame2.grid(x=365, y=40)
-    button_start.grid(x=300, y=70)
-    button_change.grid(x=350, y=250)
+    label1_frame2.place(x=160, y=100)
+    button_start.place(x=350, y=200)
+    button_change.place(x=350, y=320)
 
     # frameを前面にする
     frame.tkraise()
