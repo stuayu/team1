@@ -1,6 +1,7 @@
 ## tkinterのインポート
 import tkinter as tk
 import tkinter.ttk as ttk
+#import readcard
 
 def change_app():
     frame2.tkraise()
@@ -48,7 +49,8 @@ if __name__ == "__main__":
     frame2.grid(row=0, column=0, sticky="nsew", pady=20)
 
     # 各種ウィジェットの作成
-    label1_frame2 = ttk.Label(frame2, text = 'カードをタップしてください',foreground='RoyalBlue3',font=("20"))
+    label1_frame2 = ttk.Label(frame2, text='カードをタップしてください', foreground='RoyalBlue3', font=("20"))
+    #message = readcard.ReadCard_post()
     button_change = ttk.Button(frame2, text="戻る", command=change_main)
 
     # 各種ウィジェットの設置

@@ -20,7 +20,7 @@ class MyCardReader(object):
         finally:
             clf.close()
 
-if __name__ == '__main__':
+def ReadCard_Post(teacher_id:str):
     cr = MyCardReader()
     start_time = time()
     while True:
@@ -29,14 +29,21 @@ if __name__ == '__main__':
         print("released")
         print("IDm = {}".format(cr.idm))
         IDm = 'cr.idm'
-        ID = 'entry1_frame.get()'
         #data引数に、postパラメータを渡す
-        payload = {'teacher_id': ID,'student_idm':cr.idm}
-        header = {'accept': 'application/json','Content-Type': 'application/x-www-form-urlencoded'}
-        res =  requests.post('http://localhost:8000/user/check/',data=payload,headers=header)
+        payload = {'teacher_id': teacher_id, 'student_idm': cr.idm}
+        header = {'accept': 'application/json',
+                  'Content-Type': 'application/x-www-form-urlencoded'}
+        res = requests.post('http://localhost:8000/user/check/',
+                            data=payload, headers=header)
         json_data = res.json()
         print(json_data['detail'])
         current_time = time()
         #print("time = %3.2f" % (current_time - start_time))
         if current_time - start_time > 10.0:
             sys.exit()
+            return json_data['detail']
+
+if __name__ == '__main__':
+    id = 'P001'
+    message = ReadCard_Post(id)
+    print(message)
