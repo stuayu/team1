@@ -13,7 +13,6 @@ def change_main():
 def ReadCard(event):
     message = readcard.ReadCard_Post(teacher_id)
     label.config(text=message)
-    #label.after(3000, lambda:label.pack_forget())
 
 def getTextInput():
     global teacher_id
