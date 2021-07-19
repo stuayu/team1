@@ -12,7 +12,7 @@ def get_data(teacher_id: str, student_idm: str):
 
     message = attend+"と正常に登録しました。"
     print(message)
-    return {'message': message}
+    return {'detail': message}
 
 
 def get_subject(teacher_id: str):

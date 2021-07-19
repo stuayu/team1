@@ -12,9 +12,13 @@ def change_main():
     frame.tkraise()
 
 def ReadCard(event):
-    print(teacher_id)
     message = readcard.ReadCard_Post(teacher_id)
     label.config(text=message)
+
+def getTextInput():
+    global teacher_id
+    teacher_id = entry1_frame.get("1.0", "end")
+    print(teacher_id)
 
 if __name__ == "__main__":
     # rootメインウィンドウの設定
@@ -37,11 +41,11 @@ if __name__ == "__main__":
     label2_frame = ttk.Label(
         frame, text='教員ID', foreground='White', background='RoyalBlue2')
     entry1_frame = ttk.Entry(frame, width=30)
-    teacher_id = entry1_frame.get()
-    print(teacher_id)
+
     #label3_frame = ttk.Label(frame,text='講義ID',foreground='White',background='RoyalBlue2')
     #entry2_frame = ttk.Entry(frame,width=30)
-    button_change = ttk.Button(frame, text="OK", command=change_app)
+    teacher_id:str
+    button_change = ttk.Button(frame, text="OK", command=lambda:[change_app,getTextInput])
     # クリックしたらデータ取得
     # 各種ウィジェットの設置(ピクセル単位で指定)
     label1_frame.place(x=250, y=0)
