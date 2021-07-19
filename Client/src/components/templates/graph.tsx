@@ -17,6 +17,7 @@ param1.append('subject_id','F1')
 export default function Graph() {
   const [student_id, setId] = React.useState([]);
   const [attend, setAttend] = React.useState([]);
+  const [TMP, setTmp] = React.useState([]);
   
   React.useEffect(() => {
     postdata()
@@ -41,46 +42,50 @@ export default function Graph() {
   let index_tmp: number = 0;
   let tmp: number = 0;
 
-  for(let id of student_id){
-    //console.log(id);
+  const check_data = () => {
+    for(let id of student_id){
+      //console.log(id);
 
-    let index: number = student_id.indexOf(id);
-    if (index_tmp !== index) {
-      tmp += 1;
-      index_tmp = index;
-    }
-    //console.log(index);
-    //console.log(late_data);
-    //console.log(attend[index]);
-
-    if(index < 0) continue;
-    switch(attend[num_tmp]){
-      case '出席': attend_tmp++; break;
-      case '遅刻': late_tmp++; break;
-    }
-    attend_data[tmp] = attend_tmp;
-    late_data[tmp] = late_tmp;
-    name_data[tmp] = id;
-    console.log(attend_tmp);
-    console.log(late_tmp);
-    console.log(id)
-    console.log(tmp);
-    num_tmp += 1; 
-  }
-
-  let data;
-  for (let j = 0; j < tmp; j++){
-    let demo = [
-      {
-        name: name_data[j],
-        att: attend_data[j],
-        seq: late_data[j],
+      let index: number = student_id.indexOf(id);
+      if (index_tmp !== index) {
+        tmp += 1;
+        index_tmp = index;
       }
-    ];
-    console.log(demo)
-    data.push(demo)
+      console.log(index);
+      //console.log(late_data);
+      //console.log(attend[index]);
+
+      if(index < 0) continue;
+      switch(attend[num_tmp]){
+        case '出席': attend_tmp++; break;
+        case '遅刻': late_tmp++; break;
+      }
+      attend_data[tmp] = attend_tmp;
+      late_data[tmp] = late_tmp;
+      name_data[tmp] = id;
+      //console.log(attend_tmp);
+      //console.log(late_tmp);
+      //console.log(id)
+      //console.log(tmp);
+      num_tmp += 1;
+    }
+    let data;
+    for (let j = 0; j <= tmp; j++){
+      let demo = [
+        {
+          name: name_data[j],
+          att: attend_data[j],
+          seq: late_data[j],
+        }
+      ];
+      console.log(demo)
+      data.push(demo)
+    }
   }
   
+
+  
+  check_data();
 
     return (
       <BarChart
