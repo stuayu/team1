@@ -1,8 +1,12 @@
 import React from "react"
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,} from 'recharts';
 import axios from 'axios';
+import { Grid } from "@material-ui/core";
+import Stack from '@material-ui/core/Stack';
+import Button from '@material-ui/core/Button';
 
-const DATA = 'http://localhost:8000/attend/'
+const DATA = 'http://localhost:8000/attend/';
+const LINK = 'http://localhost:3000/';
 
 var queries=getUrlQueries()
 
@@ -60,13 +64,6 @@ export default function Graph() {
   let tmp: number = 0;             //学生一人に対応できるようにするため
   let data: Object[] = [];         //生成できた結果を格納する
 
-  /*
-  interface data{
-    name: string,
-    att: number,
-    seq: number
-  }*/
-
   const check_data = async () => {
     for(let id of student_id){
       //console.log(id);
@@ -115,25 +112,30 @@ export default function Graph() {
   
   check_data();
 
-    return (
-      <BarChart
-        width={500}
-        height={300}
-        data={data}
-        margin={{
-          top: 5,
-          right: 30,
-          left: 20,
-          bottom: 5
-        }}
-      >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
-        <YAxis />
-        <Tooltip />
-        <Legend />
-        <Bar dataKey="att" fill="#8884d8" />
-        <Bar dataKey="seq" fill="#82ca9d" />
-      </BarChart>
+  return (
+    <Grid container>
+      <Stack spacing={2}>
+        <Button variant="contained" href={LINK}>ログインページに戻る</Button>
+      </Stack>
+        <BarChart
+          width={500}
+          height={300}
+          data={data}
+          margin={{
+            top: 5,
+            right: 30,
+            left: 20,
+            bottom: 5
+          }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="name" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Bar dataKey="att" fill="#8884d8" />
+          <Bar dataKey="seq" fill="#82ca9d" />
+        </BarChart>
+      </Grid>
     );
   }
