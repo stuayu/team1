@@ -33,16 +33,24 @@ export default function Graph() {
     }
   };
 
-  let name_data:string[] = [];
-  let attend_data: number[] = [];
-  let late_data: number[] = [];
-  let attend_tmp: number = 0;
-  let late_tmp: number = 0;
-  let num_tmp: number = 0;
-  let index_tmp: number = 0;
-  let tmp: number = 0;
+  let name_data: string[] = [];    //生成するデータ(学籍番号)
+  let attend_data: number[] = [];  //生成するデータ(出席回数の合計値)
+  let late_data: number[] = [];    //生成するデータ(遅刻回数の合計値)
+  let attend_tmp: number = 0;      //出席回数を合計する際に利用する
+  let late_tmp: number = 0;        //遅刻回数を合計する際に利用する
+  let num_tmp: number = 0;         //forループが何回回ったのか計測する
+  let index_tmp: number = 0;       //student_idから取り出した値(id)がstudent_idの何番目かを格納
+  let tmp: number = 0;             //学生一人に対応できるようにするため
+  let data: Object[] = [];         //生成できた結果を格納する
 
-  const check_data = () => {
+  /*
+  interface data{
+    name: string,
+    att: number,
+    seq: number
+  }*/
+
+  const check_data = async () => {
     for(let id of student_id){
       //console.log(id);
 
@@ -69,17 +77,17 @@ export default function Graph() {
       //console.log(tmp);
       num_tmp += 1;
     }
-    let data;
-    for (let j = 0; j <= tmp; j++){
-      let demo = [
-        {
-          name: name_data[j],
-          att: attend_data[j],
-          seq: late_data[j],
-        }
-      ];
-      console.log(demo)
-      data.push(demo)
+    await createdata();
+    function createdata() {
+      for (let j = 0; j <= tmp; j++){
+        let demo = {
+            name: name_data[j],
+            att: attend_data[j],
+            seq: late_data[j],
+          }
+        console.log(demo);
+        data.push(demo);
+      }
     }
   }
   
