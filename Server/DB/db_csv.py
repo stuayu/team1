@@ -3,28 +3,6 @@ from DB import db
 from fastapi.responses import StreamingResponse
 from login.auth_pro import get_current_user_from_token
 from fastapi import HTTPException
-from io import StringIO
-from typing import List
-
-def create_csv_from_associative_array(data: List[list], **settings) -> str:
-    file = StringIO()
-    writer = csv.writer(file, **settings)
-    writer.writerows(data)
-    csv_data = file.getvalue()
-    StringIO().close()
-
-    return csv_data
-
-
-settings = {
-    'delimiter': ',',
-    'doublequote': True,
-    'lineterminator': '\r\n',
-    'quotechar': '"',
-    'skipinitialspace': True,
-    'quoting': csv.QUOTE_MINIMAL,
-    'strict': True
-}
 
 def csv_create(token: str,id:str):
     userid = get_current_user_from_token(token, 'access_token')  # ログインしたユーザを取得
@@ -53,13 +31,11 @@ def csv_create(token: str,id:str):
 
     #print(temp2[0].replace('()','[]'))
     data:list = []
-    print(temp2)
-    print(len(temp2)-1)
-    print(list(temp2[0]))
+    #print(temp2)
+    #print(len(temp2)-1)
+    #print(list(temp2[0]))
     for i in range(len(temp2)):
         data.append(list(temp2[i]))
         print(data)
 
-    csv_data = create_csv_from_associative_array(data=data, **settings)
-
-    return StreamingResponse(csv_data, media_type="text/csv")
+    return data
