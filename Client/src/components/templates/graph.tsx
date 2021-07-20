@@ -3,15 +3,33 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,} from 'rec
 import axios from 'axios';
 
 const DATA = 'http://localhost:8000/attend/'
-//const data = 
 
+var queries=getUrlQueries()
 
 var param1 = new URLSearchParams();
 const token = localStorage.getItem('token')?.toString()
 if (token != null) {
   param1.append('token', token)
 }
-param1.append('subject_id','F1')
+function getUrlQueries() {
+    var queryStr = window.location.search.slice(1) //文頭?を削除
+    var queries = {};
+
+    // クエリがない場合は空のオブジェクトを返す
+  if (!queryStr) {
+    return queries;
+  }
+
+  // クエリ文字列を & で分割して処理
+  queryStr.split('&').forEach(function(queryStr) {
+    // = で分割してkey,valueをオブジェクトに格納
+    var queryArr = queryStr.split('=');
+    queries[queryArr[0]] = queryArr[1];
+  });
+
+  return queries;
+}
+param1.append('subject_id', queries['id'])
 
 
 export default function Graph() {

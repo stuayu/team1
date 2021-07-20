@@ -16,7 +16,7 @@ const App: React.FC = () => {
         <Route path="/attend" component={AttendPage} exact/>
         <Route path="/list" component={TablePage} exact/>
         <Route path="/login" component={LoginPage} exact />
-        <Route path="/graph" component={Graph} exact/>
+        <Route path="/graph" component={Graph} exact />
       </Switch>
     </Router>
   );
