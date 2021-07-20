@@ -3,6 +3,28 @@ from DB import db
 from fastapi.responses import StreamingResponse
 from login.auth_pro import get_current_user_from_token
 from fastapi import HTTPException
+from io import StringIO
+from typing import List
+
+def create_csv_from_associative_array(data: List[list], **settings) -> str:
+    file = StringIO()
+    writer = csv.writer(file, **settings)
+    writer.writerows(data)
+    csv_data = file.getvalue()
+    StringIO().close()
+
+    return csv_data
+
+
+settings = {
+    'delimiter': ',',
+    'doublequote': True,
+    'lineterminator': '\r\n',
+    'quotechar': '"',
+    'skipinitialspace': True,
+    'quoting': csv.QUOTE_MINIMAL,
+    'strict': True
+}
 
 def csv_create(token: str,id:str):
     userid = get_current_user_from_token(token, 'access_token')  # ログインしたユーザを取得
@@ -28,17 +50,16 @@ def csv_create(token: str,id:str):
         temp2 = db.selectData(conn, selectSql_3)
     else:
         raise HTTPException(status_code=401, detail="不明なエラーが発生しました1")
-    
-    path = 'student_attendance.csv'
-    f = open(path, 'w', encoding='utf-8')  # csvファイルを作成する
-    w = csv.writer(f)
 
-    #student_allからデータを取り出す
+    #print(temp2[0].replace('()','[]'))
+    data:list = []
+    print(temp2)
+    print(len(temp2)-1)
+    print(list(temp2[0]))
+    for i in range(len(temp2)):
+        data.append(list(temp2[i]))
+        print(data)
 
-    w.writerows(temp2)  # データを書き込む
+    csv_data = create_csv_from_associative_array(data=data, **settings)
 
-    f.close()
-
-    f = open(path, mode="r", encoding='utf-8')
-    #return print('csv作成')
-    return StreamingResponse(f, media_type="text/csv")
+    return StreamingResponse(csv_data, media_type="text/csv")
