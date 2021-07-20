@@ -177,8 +177,10 @@ export default function BasicTable() {
     }
   }*/
 
-  function downloadCSV(textdata, filetype, filename){
-    const blob = new Blob([textdata], {type: filetype});
+  function downloadCSV(textdata, filetype, filename) {
+    let data = textdata.map((record)=>record.join(',')).join('\r\n');
+    let bom  = new Uint8Array([0xEF, 0xBB, 0xBF]);
+    const blob = new Blob([bom,data], {type: filetype});
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
