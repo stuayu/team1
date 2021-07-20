@@ -1,8 +1,12 @@
 import React from "react"
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,} from 'recharts';
 import axios from 'axios';
+import { Grid } from "@material-ui/core";
+import Stack from '@material-ui/core/Stack';
+import Button from '@material-ui/core/Button';
 
-const DATA = 'http://localhost:8000/attend/'
+const DATA = 'http://localhost:8000/attend/';
+const LINK = 'http://localhost:3000/';
 
 var queries=getUrlQueries()
 
@@ -59,13 +63,6 @@ export default function Graph() {
   let index_tmp: number = 0;       //student_idから取り出した値(id)がstudent_idの何番目かを格納
   let tmp: number = 0;             //学生一人に対応できるようにするため
   let data: Object[] = [];         //生成できた結果を格納する
-
-  /*
-  interface data{
-    name: string,
-    att: number,
-    seq: number
-  }*/
 
   const check_data = async () => {
     for(let id of student_id){
