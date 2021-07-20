@@ -19,9 +19,6 @@ def print_attend(subject_id: str, token: str):
 
     selectSql_3 = "Select * FROM `student_attend` WHERE `講義ID`='%s'" % (subject_id)
 
-
-
-
     conn = db.createMysqlConnecter()
     temp1 = db.selectData(conn, selectSql_2)
 

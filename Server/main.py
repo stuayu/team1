@@ -58,16 +58,8 @@ def post_root(testParam: TestParam):
     print(testParam)
     return testParam
 
-
-@app.get("/db/{table}", tags=["DB"])     # docsに表示されるURL
-def get_table(table: str):  # table変数を文字列に定義
-    """データベースにあるテーブル名を入力すると中身がそのまま帰ってくる機能です(危険)"""
-    selectSql = 'Select * from %s' % table  # %sを変数 table に置き換える
-    conn = db.createMysqlConnecter()    # データベースにログイン
-    return db.selectData(conn, selectSql)  # データベースから情報取得
-
-
-@app.get("/csv/",tags=["DB"])
-def get_csv():
+@app.post("/csv/",tags=["DB"])
+def get_csv(token:str = Form(...),id:str = Form(...)):
     """csvファイルを作成します"""
-    return csv_create()
+    return csv_create(token, id)
+    

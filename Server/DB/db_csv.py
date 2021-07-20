@@ -1,18 +1,41 @@
 import csv
 from DB import db
 from fastapi.responses import StreamingResponse
+from login.auth_pro import get_current_user_from_token
+from fastapi import HTTPException
 
-def csv_create():
+def csv_create(token: str,id:str):
+    userid = get_current_user_from_token(token, 'access_token')  # ログインしたユーザを取得
+    selectSql_2 = "Select `ID` FROM `teacher_subject`"  # 　教員ID取得
+    conn = db.createMysqlConnecter()
+    temp1 = db.selectData(conn, selectSql_2)
+
+    selectSql_1 = "Select * FROM `student_attend` WHERE `講義ID`='%s' && `学籍番号`='%s'" % (
+        id, userid.name)
+
+    selectSql_3 = "Select * FROM `student_attend` WHERE `講義ID`='%s'" % (
+        id)
+
+    key = 0
+    for i in range(len(temp1)):
+        if temp1[i][0] == userid.name:
+            key = 1  # 教員がログインしている場合の確認
+
+    #raise HTTPException(status_code=401, detail=print(temp))
+    if key == 0:
+        temp2 = db.selectData(conn, selectSql_1)
+    elif key == 1:
+        temp2 = db.selectData(conn, selectSql_3)
+    else:
+        raise HTTPException(status_code=401, detail="不明なエラーが発生しました1")
+    
     path = 'student_attendance.csv'
     f = open(path, 'w', encoding='utf-8')  # csvファイルを作成する
     w = csv.writer(f)
 
     #student_allからデータを取り出す
-    selectSql = "Select * from student_all" 
-    conn = db.createMysqlConnecter()
-    data = db.selectData(conn, selectSql)
 
-    w.writerows(data)  # データを書き込む
+    w.writerows(temp2)  # データを書き込む
 
     f.close()
 
