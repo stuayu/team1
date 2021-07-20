@@ -10,8 +10,6 @@ import axios from 'axios';
 import { Grid } from '@material-ui/core';
 import Stack from '@material-ui/core/Stack';
 import Button from '@material-ui/core/Button';
-import { ConstructionRounded } from '@material-ui/icons';
-//import Graph from "./graph";
 
 // 解説(https://qiita.com/akinov/items/26a7fc36d7c0045dd2db)
 console.log(window.location.search.slice(1))
@@ -84,17 +82,10 @@ export default function BasicTable() {
   const postdata = async () => {
     try {
         const res1 = await axios.post(DATA, param1);
-        //console.log(res1)
-        console.log(res1)
-        console.log(res1.data)
-        console.log(res1.data.student_id)
-
         setSub_name(res1.data.name)
         setSub_number(res1.data.num)
         setAttend(res1.data.attend)
         setId(res1.data.student_id)
-
-
     } catch (error) {
       console.error(error);
     }
@@ -178,6 +169,8 @@ export default function BasicTable() {
   }*/
 
   function downloadCSV(textdata, filetype, filename) {
+    const array = ['講義回数', '講義ID', '学籍番号', '名前', '出席=1遅刻=0'];
+    textdata.unshift(array)
     let data = textdata.map((record)=>record.join(',')).join('\r\n');
     let bom  = new Uint8Array([0xEF, 0xBB, 0xBF]);
     const blob = new Blob([bom,data], {type: filetype});
