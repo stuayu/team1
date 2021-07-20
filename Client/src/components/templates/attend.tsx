@@ -98,36 +98,6 @@ export default function BasicTable() {
     rows.push(createData(student_id[i], name[i], attend[i], num[i]));
     }
   }
-  /*
-  function downloadCSV() {
-    //ダウンロードするCSVファイル名を指定する
-    const filename = "attend.csv";
-    //CSVデータ
-    //const data = "テスト, テスト, テスト\nテスト, テスト, テスト";
-    //BOMを付与する（Excelでの文字化け対策）
-    const bom = new Uint8Array([0xef, 0xbb, 0xbf]);
-    //Blobでデータを作成する
-    const blob = new Blob([bom, rows.map()], { type: "text/csv" });
-
-    //IE10/11用(download属性が機能しないためmsSaveBlobを使用）
-    if (window.navigator.msSaveBlob) {
-        window.navigator.msSaveBlob(blob, filename);
-    //その他ブラウザ
-    } else {
-        //BlobからオブジェクトURLを作成する
-        const url = (window.URL || window.webkitURL).createObjectURL(blob);
-        //ダウンロード用にリンクを作成する
-        const download = document.createElement("a");
-        //リンク先に上記で生成したURLを指定する
-        download.href = url;
-        //download属性にファイル名を指定する
-        download.download = filename;
-        //作成したリンクをクリックしてダウンロードを実行する
-        download.click();
-        //createObjectURLで作成したオブジェクトURLを開放する
-        (window.URL || window.webkitURL).revokeObjectURL(url);
-    }
-}*/
 
   let datapost:string = '';
   console.log(param2);
@@ -152,22 +122,6 @@ export default function BasicTable() {
     console.log(datapost);
   }
 
-
-  /*let data_DL:string = '';
-  function handleClick(event) {
-    React.useEffect(() => {
-      datapost()
-    }, [])
-    const datapost = async () => {
-      try {
-        data_DL = await axios.post(DL_LINK, param2);
-       
-     } catch (error) {
-       console.error(error);
-     }
-    }
-  }*/
-
   function downloadCSV(textdata, filetype, filename) {
     const array = ['講義回数', '講義ID', '学籍番号', '名前', '出席=1遅刻=0'];
     textdata.unshift(array)
@@ -190,34 +144,33 @@ export default function BasicTable() {
         <Button variant="contained" href={LINK} >グラフ表示</Button>
         <Button variant="contained" onClick={event => handleClick()} >出席状況ダウンロード</Button>
       </Stack>
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
-          <TableRow style={{ backgroundColor: "#F2F2F2" }}>
-            <TableCell>学籍番号</TableCell>
-            <TableCell>講義回数</TableCell>
-            <TableCell>名前</TableCell>
-            <TableCell>出席</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow
-              key={row.student_id}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-              >
-              <TableCell component="th" scope="row">
-                {row.student_id}
-              </TableCell>
-              <TableCell>{row.num}</TableCell>
-              <TableCell>{row.name}</TableCell>
-              <TableCell>{row.attend}</TableCell>
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <TableHead>
+            <TableRow style={{ backgroundColor: "#F2F2F2" }}>
+              <TableCell>学籍番号</TableCell>
+              <TableCell>講義回数</TableCell>
+              <TableCell>名前</TableCell>
+              <TableCell>出席</TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-    
+          </TableHead>
+          <TableBody>
+            {rows.map((row) => (
+              <TableRow
+                key={row.student_id}
+                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                >
+                <TableCell component="th" scope="row">
+                  {row.student_id}
+                </TableCell>
+                <TableCell>{row.num}</TableCell>
+                <TableCell>{row.name}</TableCell>
+                <TableCell>{row.attend}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </Grid>
   );
 }
