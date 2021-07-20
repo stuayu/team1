@@ -10,21 +10,22 @@ import axios from 'axios';
 import { Grid } from '@material-ui/core';
 import Stack from '@material-ui/core/Stack';
 import Button from '@material-ui/core/Button';
+import { ConstructionRounded } from '@material-ui/icons';
 //import Graph from "./graph";
 
 // 解説(https://qiita.com/akinov/items/26a7fc36d7c0045dd2db)
 console.log(window.location.search.slice(1))
 var queries=getUrlQueries()
 const LINK = 'http://localhost:3000/graph?id=' + queries['id'];
-//const DL_LINK = 'http://localhost:8000/csv/';
-//var param2 = new URLSearchParams();
+const DL_LINK = 'http://localhost:8000/csv/';
+var param2 = new URLSearchParams();
 const DATA = 'http://localhost:8000/attend/';
 // トークンをローカルストレージから取得する
 var param1 = new URLSearchParams();
 const token = localStorage.getItem('token')?.toString()
 if (token != null) {
   param1.append('token', token);
-  //param2.append('token', token);
+  param2.append('token', token);
 }
 
 function getUrlQueries() {
@@ -48,7 +49,7 @@ function getUrlQueries() {
 
 console.log(queries['id'])
 param1.append('subject_id', queries['id'])
-//param2.append('id', queries['id']);
+param2.append('id', queries['id']);
 interface Data {
   student_id: string,
   name: string,
@@ -136,22 +137,63 @@ export default function BasicTable() {
         (window.URL || window.webkitURL).revokeObjectURL(url);
     }
 }*/
-/*
+
+  let datapost:string = '';
+  console.log(param2);
+  console.log(param1);
+
+  function handleClick(){
+    axios.post(DL_LINK,param2)
+    .then(result=>downloadCSV(result.data, 'text/csv', 'test.csv'))
+    .catch((error) => {
+      if (error.response) {
+        // 200系以外の時にエラーが発生する
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else if (error.request) {
+        console.log(error.request);
+      } else {
+        // 上記以外のエラーが発生した場合
+        console.log('Error', error.message);
+      }
+    });
+    console.log(datapost);
+  }
+
+
+  /*let data_DL:string = '';
   function handleClick(event) {
-    try {
-      axios.post(DL_LINK, param2);
-      
-    } catch (error) {
-      console.error(error);
+    React.useEffect(() => {
+      datapost()
+    }, [])
+    const datapost = async () => {
+      try {
+        data_DL = await axios.post(DL_LINK, param2);
+       
+     } catch (error) {
+       console.error(error);
+     }
     }
   }*/
+
+  function downloadCSV(textdata, filetype, filename){
+    const blob = new Blob([textdata], {type: filetype});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
 
   CreateTable();
   return (
     <Grid container >
       <Stack spacing={2} direction="row">
         <Button variant="contained" href={LINK} >グラフ表示</Button>
-        <Button variant="contained" /*onClick={event => downloadCSV()}*/ >出席状況ダウンロード</Button>
+        <Button variant="contained" onClick={event => handleClick()} >出席状況ダウンロード</Button>
       </Stack>
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
