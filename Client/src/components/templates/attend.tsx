@@ -7,18 +7,24 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import axios from 'axios';
-import Graph from "./graph";
+import { Grid } from '@material-ui/core';
+import Stack from '@material-ui/core/Stack';
+import Button from '@material-ui/core/Button';
+//import Graph from "./graph";
 
 // 解説(https://qiita.com/akinov/items/26a7fc36d7c0045dd2db)
 console.log(window.location.search.slice(1))
-
-
-const DATA = 'http://localhost:8000/attend/'
+var queries=getUrlQueries()
+const LINK = 'http://localhost:3000/graph?id=' + queries['id'];
+//const DL_LINK = 'http://localhost:8000/csv/';
+//var param2 = new URLSearchParams();
+const DATA = 'http://localhost:8000/attend/';
 // トークンをローカルストレージから取得する
 var param1 = new URLSearchParams();
 const token = localStorage.getItem('token')?.toString()
 if (token != null) {
-  param1.append('token', token)
+  param1.append('token', token);
+  //param2.append('token', token);
 }
 
 function getUrlQueries() {
@@ -39,10 +45,10 @@ function getUrlQueries() {
 
   return queries;
 }
-var queries=getUrlQueries()
+
 console.log(queries['id'])
 param1.append('subject_id', queries['id'])
-
+//param2.append('id', queries['id']);
 interface Data {
   student_id: string,
   name: string,
@@ -100,12 +106,57 @@ export default function BasicTable() {
     rows.push(createData(student_id[i], name[i], attend[i], num[i]));
     }
   }
+  /*
+  function downloadCSV() {
+    //ダウンロードするCSVファイル名を指定する
+    const filename = "attend.csv";
+    //CSVデータ
+    //const data = "テスト, テスト, テスト\nテスト, テスト, テスト";
+    //BOMを付与する（Excelでの文字化け対策）
+    const bom = new Uint8Array([0xef, 0xbb, 0xbf]);
+    //Blobでデータを作成する
+    const blob = new Blob([bom, rows.map()], { type: "text/csv" });
+
+    //IE10/11用(download属性が機能しないためmsSaveBlobを使用）
+    if (window.navigator.msSaveBlob) {
+        window.navigator.msSaveBlob(blob, filename);
+    //その他ブラウザ
+    } else {
+        //BlobからオブジェクトURLを作成する
+        const url = (window.URL || window.webkitURL).createObjectURL(blob);
+        //ダウンロード用にリンクを作成する
+        const download = document.createElement("a");
+        //リンク先に上記で生成したURLを指定する
+        download.href = url;
+        //download属性にファイル名を指定する
+        download.download = filename;
+        //作成したリンクをクリックしてダウンロードを実行する
+        download.click();
+        //createObjectURLで作成したオブジェクトURLを開放する
+        (window.URL || window.webkitURL).revokeObjectURL(url);
+    }
+}*/
+/*
+  function handleClick(event) {
+    try {
+      axios.post(DL_LINK, param2);
+      
+    } catch (error) {
+      console.error(error);
+    }
+  }*/
+
   CreateTable();
   return (
+    <Grid container >
+      <Stack spacing={2} direction="row">
+        <Button variant="contained" href={LINK} >グラフ表示</Button>
+        <Button variant="contained" /*onClick={event => downloadCSV()}*/ >出席状況ダウンロード</Button>
+      </Stack>
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
-          <TableRow>
+          <TableRow style={{ backgroundColor: "#F2F2F2" }}>
             <TableCell>学籍番号</TableCell>
             <TableCell>講義回数</TableCell>
             <TableCell>名前</TableCell>
@@ -129,5 +180,7 @@ export default function BasicTable() {
         </TableBody>
       </Table>
     </TableContainer>
+    
+    </Grid>
   );
 }
