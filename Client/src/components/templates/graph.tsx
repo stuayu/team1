@@ -2,7 +2,7 @@ import React from "react"
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,} from 'recharts';
 import axios from 'axios';
 
-const DATA = 'http://localhost:4000/attend/'
+const DATA = 'http://localhost:8000/attend/'
 //const data = 
 
 
@@ -57,8 +57,11 @@ export default function Graph() {
       if (index_tmp !== index) {
         tmp += 1;
         index_tmp = index;
+        attend_tmp = 0; //変わったら変数初期化
+        late_tmp = 0;   //変わったら変数初期化
       }
-      console.log(index);
+      //console.log(index);
+      //console.log(tmp);
       //console.log(late_data);
       //console.log(attend[index]);
 
@@ -70,9 +73,9 @@ export default function Graph() {
       attend_data[tmp] = attend_tmp;
       late_data[tmp] = late_tmp;
       name_data[tmp] = id;
-      //console.log(attend_tmp);
-      //console.log(late_tmp);
-      //console.log(id)
+      //console.log(attend_data[tmp]);
+      console.log(late_data[tmp]);
+      //console.log(name_data[tmp]);
       //console.log(tmp);
       num_tmp += 1;
     }
