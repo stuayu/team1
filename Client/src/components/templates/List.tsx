@@ -7,13 +7,17 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import axios from 'axios';
+import { Grid } from '@material-ui/core';
+import Stack from '@material-ui/core/Stack';
+import Button from '@material-ui/core/Button';
 
-const DATA = 'http://localhost:8000/getSub/'
+const DATA = 'http://localhost:4000/getSub/';
+const LINK = 'http://localhost:3000/';
 // トークンをローカルストレージから取得する
 var param = new URLSearchParams();
-const token = localStorage.getItem('token')?.toString()
+const token = localStorage.getItem('token')?.toString();
 if (token != null) {
-  param.append('token', token)
+  param.append('token', token);
 }
 interface Data {
   id: string;
@@ -43,7 +47,6 @@ export default function BasicTable() {
   const postdata = async () => {
     try {
       const res = await axios.post(DATA, param);
-      console.log(res.data.id)
       setId(res.data.id)
       setSub_name(res.data.sub_name)
     } catch (error) {
@@ -59,34 +62,37 @@ export default function BasicTable() {
   }
   CreateTable();
   function handleClick(event,id){
-    console.log(id)
     window.location.href = "http://localhost:3000/attend?id=" + id ; // 通常の遷移 
-    //console.log(event)
   }
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>科目ID</TableCell>
-            <TableCell>科目名</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow
-              onClick={event => handleClick(event,row.id)}
-              key={row.id}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-                {row.id}
-              </TableCell>
-              <TableCell>{row.sub_name}</TableCell>
+    <Grid container>
+      <Stack spacing={2} direction="row">
+        <Button variant="contained" href={LINK} >ログインページに戻る</Button>
+      </Stack>
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <TableHead>
+            <TableRow style={{ backgroundColor: "#F2F2F2" }}>
+              <TableCell>科目ID</TableCell>
+              <TableCell>科目名</TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {rows.map((row) => (
+              <TableRow
+                onClick={event => handleClick(event,row.id)}
+                key={row.id}
+                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              >
+                <TableCell component="th" scope="row">
+                  {row.id}
+                </TableCell>
+                <TableCell>{row.sub_name}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Grid>
   );
 }
