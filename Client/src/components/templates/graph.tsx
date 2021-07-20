@@ -2,7 +2,7 @@ import React from "react"
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,} from 'recharts';
 import axios from 'axios';
 
-const DATA = 'http://localhost:8000/attend/'
+const DATA = 'http://localhost:4000/attend/'
 //const data = 
 
 
@@ -17,7 +17,6 @@ param1.append('subject_id','F1')
 export default function Graph() {
   const [student_id, setId] = React.useState([]);
   const [attend, setAttend] = React.useState([]);
-  const [TMP, setTmp] = React.useState([]);
   
   React.useEffect(() => {
     postdata()
