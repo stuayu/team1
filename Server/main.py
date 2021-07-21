@@ -41,10 +41,7 @@ async def check_idm(teacher_id: str = Form(...), student_idm: str = Form(...)):
     """idmと教職員データを利用して
        戻り値に出席，遅刻を返す 
     """
-    get_data(teacher_id, student_idm)
-
-    return {"message": "登録が完了しました．"}
-
+    return get_data(teacher_id, student_idm)
 
 @app.get("/")
 def get_root():
