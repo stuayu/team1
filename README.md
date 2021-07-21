@@ -19,6 +19,7 @@ ___
   ```powershell
   cd Client
   npm install
+  npm run build
   npm start
   ```
 - サーバの起動方法
