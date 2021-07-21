@@ -8,7 +8,7 @@ def get_data(teacher_id: str, student_idm: str):
     """
     subject_id, attend, number = get_subject(teacher_id)
 
-    attend = create_attend(subject_id, student_idm, attend)
+    attend = create_attend(subject_id, student_idm, attend, number)
 
     message = attend+"と正常に登録しました。"
     print(message)
@@ -85,12 +85,12 @@ def create_attend(subject_id: str, student_idm: str, attend: int, number: int):
     else:
         raise HTTPException(status_code=401, detail='出席遅刻判定でエラーが発生しました．')
 
-    selectSql_2 = "INSERT INTO `student_attend` (`回数`,`講義ID`,`学籍番号`,`名前`,`出欠`) VALUES ('%d','%s','%s','%s','%s')" % (
+    selectSql_2 = "INSERT INTO `student_attend` (`回数`,`講義ID`,`学籍番号`,`名前`,`出欠`) VALUES ('%s','%s','%s','%s','%s')" % (
         number, subject_id, temp[0][0], temp[0][1], attend_str)
 
     db.insertData(conn, selectSql_2)
 
-    result = temp[0][0]+'は'+attend+'と登録しました'
+    result = temp[0][0]+'は'+str(attend)+'と登録しました'
     return result
 
 
