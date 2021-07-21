@@ -47,7 +47,7 @@ if __name__ == "__main__":
     button_change = ttk.Button(frame, text="OK", command=lambda:[change_app(),getTextInput()])
     # クリックしたらデータ取得
     # 各種ウィジェットの設置(ピクセル単位で指定)
-    label1_frame.place(x=250, y=0)
+    label1_frame.place(x=300, y=0)
     label2_frame.place(x=365, y=40)
     entry1_frame.place(x=300, y=70)
     # label3_frame.place(x=365,y=100)
@@ -73,7 +73,7 @@ if __name__ == "__main__":
     button_change = ttk.Button(frame2, text="戻る", command=change_main)
 
     # 各種ウィジェットの設置
-    label1_frame2.place(x=160, y=100)
+    label1_frame2.place(x=210, y=100)
     button_start.place(x=350, y=200)
     button_change.place(x=350, y=320)
 
