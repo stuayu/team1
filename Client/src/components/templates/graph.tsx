@@ -66,8 +66,6 @@ export default function Graph() {
 
   const check_data = async () => {
     for(let id of student_id){
-      //console.log(id);
-
       let index: number = student_id.indexOf(id);
       if (index_tmp !== index) {
         tmp += 1;
@@ -75,10 +73,6 @@ export default function Graph() {
         attend_tmp = 0; //変わったら変数初期化
         late_tmp = 0;   //変わったら変数初期化
       }
-      //console.log(index);
-      //console.log(tmp);
-      //console.log(late_data);
-      //console.log(attend[index]);
 
       if(index < 0) continue;
       switch(attend[num_tmp]){
@@ -90,8 +84,6 @@ export default function Graph() {
       name_data[tmp] = id;
       //console.log(attend_data[tmp]);
       console.log(late_data[tmp]);
-      //console.log(name_data[tmp]);
-      //console.log(tmp);
       num_tmp += 1;
     }
     await createdata();

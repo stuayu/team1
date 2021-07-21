@@ -59,9 +59,7 @@ export default function BasicTable() {
   }
   CreateTable();
   function handleClick(event,id){
-    console.log(id)
     window.location.href = "http://localhost:3000/attend?id=" + id ; // 通常の遷移 
-    //console.log(event)
   }
   return (
     <TableContainer component={Paper}>
@@ -87,6 +85,6 @@ export default function BasicTable() {
           ))}
         </TableBody>
       </Table>
-    </TableContainer>
+      </TableContainer>
   );
 }

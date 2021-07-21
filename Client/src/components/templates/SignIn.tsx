@@ -12,15 +12,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import axios from 'axios';
-//import { useState } from 'react';
-
 /*
-  *****コメントを読んで下さい*****
-  よくわからなかったため，今回　material ui のバージョンを上げました．
-  *****必ず npm install を実行してください．*****
-  したがって，他の箇所のコードが動かないことが発生しており，一時的にすべてコメントアウト
-  しています．
-  これらを解決する際には公式サイトのリファレンスを参考にしてください．
   https://next.material-ui.com/
   このサイトはMaterial Uiのバージョン5について書かれています．
   このログインページを開くには /login をつけてアクセスしてください．
@@ -63,7 +55,6 @@ export default function SignIn() {
     let res
     try {
       res = await axios.post('http://localhost:8000/token', params)
-      console.log(res)
     } catch(err){
       res = err.response
     }
@@ -78,16 +69,6 @@ export default function SignIn() {
       localStorage.setItem('token', res.data.access_token) //localstrageにアクセストークンを保存
     　window.location.href = 'http://localhost:3000/list/'; // 通常の遷移 
     }
-    
-    // debug
-    console.log(res)
-    console.log({
-      status: res.status,
-    })
-    console.log({
-      ID: username,
-      password: password,
-    });
   };
 
   return (
