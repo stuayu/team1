@@ -3,11 +3,11 @@
 echo ===========================================================
 echo.
 echo                  Team1のシステムのインストール
-echo. 
+echo.
 echo                               Auther stuayu and contributor
 echo ============================================================
 echo.
-echo. 
+echo.
 echo    (注意)システムをインストールする前に確認してください。
 echo.
 echo    NodeJS
