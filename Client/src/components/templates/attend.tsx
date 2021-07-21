@@ -14,9 +14,9 @@ import Button from '@material-ui/core/Button';
 // 解説(https://qiita.com/akinov/items/26a7fc36d7c0045dd2db)
 var queries=getUrlQueries()
 const LINK = 'http://localhost:3000/graph?id=' + queries['id'];
-const DL_LINK = 'http://localhost:4000/csv/';
+const DL_LINK = 'http://localhost:8000/csv/';
 var param2 = new URLSearchParams();
-const DATA = 'http://localhost:4000/attend/';
+const DATA = 'http://localhost:8000/attend/';
 // トークンをローカルストレージから取得する
 var param1 = new URLSearchParams();
 const token = localStorage.getItem('token')?.toString();
