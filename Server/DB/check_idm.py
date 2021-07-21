@@ -86,7 +86,7 @@ def create_attend(subject_id: str, student_idm: str, attend: int, number: int):
         raise HTTPException(status_code=401, detail='出席遅刻判定でエラーが発生しました．')
 
     selectSql_2 = "INSERT INTO `student_attend` (`回数`,`講義ID`,`学籍番号`,`名前`,`出欠`) VALUES ('%s','%s','%s','%s','%s')" % (
-        number, subject_id, temp[0][0], temp[0][1], attend_str)
+        number, subject_id, temp[0][0], temp[0][1], attend)
 
     db.insertData(conn, selectSql_2)
 
