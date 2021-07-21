@@ -14,12 +14,12 @@ import Button from '@material-ui/core/Button';
 // 解説(https://qiita.com/akinov/items/26a7fc36d7c0045dd2db)
 var queries=getUrlQueries()
 const LINK = 'http://localhost:3000/graph?id=' + queries['id'];
-const DL_LINK = 'http://localhost:8000/csv/';
+const DL_LINK = 'http://localhost:4000/csv/';
 var param2 = new URLSearchParams();
-const DATA = 'http://localhost:8000/attend/';
+const DATA = 'http://localhost:4000/attend/';
 // トークンをローカルストレージから取得する
 var param1 = new URLSearchParams();
-const token = localStorage.getItem('token')?.toString()
+const token = localStorage.getItem('token')?.toString();
 if (token != null) {
   param1.append('token', token);
   param2.append('token', token);
@@ -44,7 +44,6 @@ function getUrlQueries() {
   return queries;
 }
 
-console.log(queries['id'])
 param1.append('subject_id', queries['id'])
 param2.append('id', queries['id']);
 interface Data {
@@ -91,16 +90,11 @@ export default function BasicTable() {
   };
 
   function CreateTable() {
-    console.log(student_id.length)
     rows.length = 0; //配列内をリセット(変な値が残ることを阻止する)
     for (let i = 0; i < student_id.length; i += 1) {
     rows.push(createData(student_id[i], name[i], attend[i], num[i]));
     }
   }
-
-  let datapost:string = '';
-  console.log(param2);
-  console.log(param1);
 
   function handleClick(){
     axios.post(DL_LINK,param2)
@@ -118,7 +112,6 @@ export default function BasicTable() {
         console.log('Error', error.message);
       }
     });
-    console.log(datapost);
   }
 
   function downloadCSV(textdata, filetype, filename) {

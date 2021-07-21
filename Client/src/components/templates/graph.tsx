@@ -91,8 +91,8 @@ export default function Graph() {
       for (let j = 0; j <= tmp; j++){
         let demo = {
             name: name_data[j],
-            attend: attend_data[j],
-            late: late_data[j],
+            att: attend_data[j],
+            seq: late_data[j],
           }
         console.log(demo);
         data.push(demo);
@@ -104,25 +104,30 @@ export default function Graph() {
   
   check_data();
 
-    return (
-      <BarChart
-        width={500}
-        height={300}
-        data={data}
-        margin={{
-          top: 5,
-          right: 30,
-          left: 20,
-          bottom: 5
-        }}
-      >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
-        <YAxis />
-        <Tooltip />
-        <Legend />
-        <Bar dataKey="attend" fill="#8884d8" />
-        <Bar dataKey="late" fill="#82ca9d" />
-      </BarChart>
+  return (
+    <Grid container>
+      <Stack spacing={2}>
+        <Button variant="contained" href={LINK}>ログインページに戻る</Button>
+      </Stack>
+        <BarChart
+          width={500}
+          height={300}
+          data={data}
+          margin={{
+            top: 5,
+            right: 30,
+            left: 20,
+            bottom: 5
+          }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="name" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Bar dataKey="att" fill="#8884d8" />
+          <Bar dataKey="seq" fill="#82ca9d" />
+        </BarChart>
+      </Grid>
     );
   }
