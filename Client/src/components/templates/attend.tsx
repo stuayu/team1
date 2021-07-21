@@ -12,15 +12,14 @@ import Stack from '@material-ui/core/Stack';
 import Button from '@material-ui/core/Button';
 
 // 解説(https://qiita.com/akinov/items/26a7fc36d7c0045dd2db)
-console.log(window.location.search.slice(1))
 var queries=getUrlQueries()
 const LINK = 'http://localhost:3000/graph?id=' + queries['id'];
-const DL_LINK = 'http://localhost:8000/csv/';
+const DL_LINK = 'http://localhost:4000/csv/';
 var param2 = new URLSearchParams();
-const DATA = 'http://localhost:8000/attend/';
+const DATA = 'http://localhost:4000/attend/';
 // トークンをローカルストレージから取得する
 var param1 = new URLSearchParams();
-const token = localStorage.getItem('token')?.toString()
+const token = localStorage.getItem('token')?.toString();
 if (token != null) {
   param1.append('token', token);
   param2.append('token', token);
@@ -45,7 +44,6 @@ function getUrlQueries() {
   return queries;
 }
 
-console.log(queries['id'])
 param1.append('subject_id', queries['id'])
 param2.append('id', queries['id']);
 interface Data {
@@ -92,46 +90,11 @@ export default function BasicTable() {
   };
 
   function CreateTable() {
-    console.log(student_id.length)
     rows.length = 0; //配列内をリセット(変な値が残ることを阻止する)
     for (let i = 0; i < student_id.length; i += 1) {
     rows.push(createData(student_id[i], name[i], attend[i], num[i]));
     }
   }
-  /*
-  function downloadCSV() {
-    //ダウンロードするCSVファイル名を指定する
-    const filename = "attend.csv";
-    //CSVデータ
-    //const data = "テスト, テスト, テスト\nテスト, テスト, テスト";
-    //BOMを付与する（Excelでの文字化け対策）
-    const bom = new Uint8Array([0xef, 0xbb, 0xbf]);
-    //Blobでデータを作成する
-    const blob = new Blob([bom, rows.map()], { type: "text/csv" });
-
-    //IE10/11用(download属性が機能しないためmsSaveBlobを使用）
-    if (window.navigator.msSaveBlob) {
-        window.navigator.msSaveBlob(blob, filename);
-    //その他ブラウザ
-    } else {
-        //BlobからオブジェクトURLを作成する
-        const url = (window.URL || window.webkitURL).createObjectURL(blob);
-        //ダウンロード用にリンクを作成する
-        const download = document.createElement("a");
-        //リンク先に上記で生成したURLを指定する
-        download.href = url;
-        //download属性にファイル名を指定する
-        download.download = filename;
-        //作成したリンクをクリックしてダウンロードを実行する
-        download.click();
-        //createObjectURLで作成したオブジェクトURLを開放する
-        (window.URL || window.webkitURL).revokeObjectURL(url);
-    }
-}*/
-
-  let datapost:string = '';
-  console.log(param2);
-  console.log(param1);
 
   function handleClick(){
     axios.post(DL_LINK,param2)
@@ -149,24 +112,7 @@ export default function BasicTable() {
         console.log('Error', error.message);
       }
     });
-    console.log(datapost);
   }
-
-
-  /*let data_DL:string = '';
-  function handleClick(event) {
-    React.useEffect(() => {
-      datapost()
-    }, [])
-    const datapost = async () => {
-      try {
-        data_DL = await axios.post(DL_LINK, param2);
-       
-     } catch (error) {
-       console.error(error);
-     }
-    }
-  }*/
 
   function downloadCSV(textdata, filetype, filename) {
     const array = ['講義回数', '講義ID', '学籍番号', '名前', '出席=1遅刻=0'];
