@@ -4,7 +4,7 @@ echo ===========================================================
 echo.
 echo                  Team1のシステムのインストール
 echo.
-echo                               Auther stuayu and contributor
+echo                                             Auther stuayu
 echo ============================================================
 echo.
 echo.

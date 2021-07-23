@@ -1,2 +1,6 @@
 # python キャッシュファイルを管理しない
 *.pyc
+#nginx以下いらない
+nginx/*/*
+*.exe
+!/nginx/setting/*.conf
