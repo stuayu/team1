@@ -91,8 +91,8 @@ export default function Graph() {
       for (let j = 0; j <= tmp; j++){
         let demo = {
             name: name_data[j],
-            att: attend_data[j],
-            seq: late_data[j],
+            attend: attend_data[j],
+            late: late_data[j],
           }
         console.log(demo);
         data.push(demo);
@@ -125,8 +125,8 @@ export default function Graph() {
           <YAxis />
           <Tooltip />
           <Legend />
-          <Bar dataKey="att" fill="#8884d8" />
-          <Bar dataKey="seq" fill="#82ca9d" />
+          <Bar dataKey="attend" fill="#8884d8" />
+          <Bar dataKey="late" fill="#82ca9d" />
         </BarChart>
       </Grid>
     );
