@@ -8,7 +8,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import axios from 'axios';
 
-const DATA = 'http://localhost:8000/getSub/'
+const DATA = '/api/getSub/'
 // トークンをローカルストレージから取得する
 var param = new URLSearchParams();
 const token = localStorage.getItem('token')?.toString()
@@ -59,7 +59,7 @@ export default function BasicTable() {
   }
   CreateTable();
   function handleClick(event,id){
-    window.location.href = "http://localhost:3000/attend?id=" + id ; // 通常の遷移 
+    window.location.href = "/attend?id=" + id ; // 通常の遷移 
   }
   return (
     <TableContainer component={Paper}>

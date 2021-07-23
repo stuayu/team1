@@ -3,29 +3,29 @@
 
 echo =============================================
 echo.
-echo           nginxã®ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ã‚’è¡Œã„ã¾ã™
+echo           nginx‚Ìƒ_ƒEƒ“ƒ[ƒh‚ğs‚¢‚Ü‚·
 echo                               Auther stuayu
 echo =============================================
 
-rem nginxã®ãƒãƒ¼ã‚·ãƒ§ãƒ³ã‚’æŒ‡å®šã™ã‚‹
+rem nginx‚Ìƒo[ƒVƒ‡ƒ“‚ğw’è‚·‚é
 set nginx_ver=nginx-1.21.1
 
-rem nginxå…¬å¼ã‚µã‚¤ãƒˆã‹ã‚‰ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰
+rem nginxŒö®ƒTƒCƒg‚©‚çƒ_ƒEƒ“ƒ[ƒh
 call powershell -command "wget 'https://nginx.org/download/%nginx_ver%.zip' -o %nginx_ver%.zip"
 
-rem zipã®å±•é–‹
+rem zip‚Ì“WŠJ
 call powershell -command "Expand-Archive -Force %nginx_ver%.zip"
 xcopy /e /y %nginx_ver%\%nginx_ver% nginx
 rmdir /s /q %nginx_ver%
 del %nginx_ver%.zip
 
-rem è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ã®è‡ªå‹•ã‚³ãƒ”ãƒ¼
+rem İ’èƒtƒ@ƒCƒ‹‚Ì©“®ƒRƒs[
 xcopy /y nginx\setting\*.conf nginx\conf\
 
 echo.
 echo.
 echo ----------------------------------------------
 echo.
-echo           nginxã®ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ãŒå®Œäº†ã—ã¾ã—ãŸ
-echo
+echo           nginx‚Ìƒ_ƒEƒ“ƒ[ƒh‚ªŠ®—¹‚µ‚Ü‚µ‚½
+echo.
 pause

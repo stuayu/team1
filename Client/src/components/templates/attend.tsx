@@ -13,10 +13,10 @@ import Button from '@material-ui/core/Button';
 
 // 解説(https://qiita.com/akinov/items/26a7fc36d7c0045dd2db)
 var queries=getUrlQueries()
-const LINK = 'http://localhost:3000/graph?id=' + queries['id'];
-const DL_LINK = 'http://localhost:8000/csv/';
+const LINK = '/graph?id=' + queries['id'];
+const DL_LINK = '/api/csv';
 var param2 = new URLSearchParams();
-const DATA = 'http://localhost:8000/attend/';
+const DATA = '/api/attend';
 // トークンをローカルストレージから取得する
 var param1 = new URLSearchParams();
 const token = localStorage.getItem('token')?.toString();
@@ -98,7 +98,7 @@ export default function BasicTable() {
 
   function handleClick(){
     axios.post(DL_LINK,param2)
-    .then(result=>downloadCSV(result.data, 'text/csv', 'test.csv'))
+    .then(result=>downloadCSV(result.data, 'text/csv', 'attend_data.csv'))
     .catch((error) => {
       if (error.response) {
         // 200系以外の時にエラーが発生する

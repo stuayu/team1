@@ -54,7 +54,7 @@ export default function SignIn() {
     // 変数定義
     let res
     try {
-      res = await axios.post('http://localhost:8000/token', params)
+      res = await axios.post('/api/token', params)
     } catch(err){
       res = err.response
     }
@@ -67,7 +67,7 @@ export default function SignIn() {
     else {
       // ログインが成功したらマイページに飛ぶ
       localStorage.setItem('token', res.data.access_token) //localstrageにアクセストークンを保存
-    　window.location.href = 'http://localhost:3000/list/'; // 通常の遷移 
+    　window.location.href = '/list/'; // 通常の遷移 
     }
   };
 

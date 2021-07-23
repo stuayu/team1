@@ -25,8 +25,9 @@ echo                   Webサーバインストール
 echo.
 echo ============================================================
 cd Client
-npm install
-npm run build
+
+call powershell -command "npm install"
+call powershell -command "npm run build"
 echo.
 echo                  Webのインストールが完了しました
 echo.
@@ -37,7 +38,7 @@ echo.
 echo ============================================================
 echo.
 cd ../Server/
-pip install -r requirements.txt
+call powershell -command "pip install -r requirements.txt"
 echo.
 echo.
 echo           WebAPIサーバのインストールが完了しました

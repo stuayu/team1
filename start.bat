@@ -2,21 +2,21 @@
 
 echo =========================================
 echo.
-echo        ã‚·ã‚¹ãƒ†ãƒ ã‚’èµ·å‹•ã—ã¾ã™
+echo        ƒVƒXƒeƒ€‚ğ‹N“®‚µ‚Ü‚·
 echo                          Auther stuayu
 echo =========================================
 
-rem nginxèµ·å‹•
+rem nginx‹N“®
 cd nginx
 start nginx
 
-rem startã‚³ãƒãƒ³ãƒ‰ã§åˆ¥ãƒ—ãƒ­ã‚»ã‚¹ã¨ã—ã¦å®Ÿè¡Œ
+rem startƒRƒ}ƒ“ƒh‚Å•ÊƒvƒƒZƒX‚Æ‚µ‚ÄÀs
 cd ..\Server
-start powershell -command "uvicorn main:app --reload --port 4000"
+start powershell -command "uvicorn main:app"
 
 cd ..\Client
 start powershell -command "npm start"
 
 echo.
-echo ã‚·ã‚¹ãƒ†ãƒ ã‚’çµ‚äº†ã™ã‚‹éš›ã«ã¯ Control+C ã§çµ‚äº†ã—ã¦ãã ã•ã„ã€‚
+echo ƒVƒXƒeƒ€‚ğI—¹‚·‚éÛ‚É‚Í Control+C ‚ÅI—¹‚µ‚Ä‚­‚¾‚³‚¢B
 pause

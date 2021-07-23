@@ -5,8 +5,8 @@ import { Grid } from "@material-ui/core";
 import Stack from '@material-ui/core/Stack';
 import Button from '@material-ui/core/Button';
 
-const DATA = 'http://localhost:8000/attend/';
-const LINK = 'http://localhost:3000/';
+const DATA = '/api/attend';
+const LINK = '/';
 
 var queries=getUrlQueries()
 
