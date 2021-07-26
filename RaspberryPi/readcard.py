@@ -5,6 +5,13 @@ import sys
 import requests
 from requests.api import request
 from requests.models import Response
+import json
+
+def setting_load():
+    with open('./setting.json', 'r', encoding='utf-8') as f:
+        setting = json.load(f)
+
+    return setting
 
 class MyCardReader(object):
 
@@ -23,6 +30,8 @@ class MyCardReader(object):
 def ReadCard_Post(teacher_id:str):
     cr = MyCardReader()
     start_time = time()
+    set_ip = setting_load()
+    IP = "http://"+str(set_ip['access_ip'])+'/api/user/check'
     while True:
         print("touch card:")
         cr.read_id()
@@ -33,7 +42,7 @@ def ReadCard_Post(teacher_id:str):
         payload = {'teacher_id': teacher_id, 'student_idm': cr.idm}
         header = {'accept': 'application/json',
                   'Content-Type': 'application/x-www-form-urlencoded'}
-        res = requests.post('http://localhost:8000/user/check/',
+        res = requests.post(IP,
                             data=payload, headers=header)
         json_data = res.json()
         print(json_data['detail'])
