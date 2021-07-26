@@ -13,7 +13,7 @@ from DB.db_csv import csv_create
 # uvicorn main:app --reload
 app = FastAPI(
     title="Team1 Attendance Management System",
-    description="I'm tired ... . It's a black company.",
+    description="Team1 Presents",
     version="1.0.0",
     docs_url="/docs",
     redoc_url="/redoc",
