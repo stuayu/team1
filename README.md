@@ -18,17 +18,17 @@ ___
 
 ## システムの起動(本番環境)
 このシステムではインストールや起動を簡潔に実行できるようにしています。  
-1. システムのインストール
+>1. システムのインストール
    - [MariaDB](https://downloads.mariadb.org/mariadb/+releases/)からダウンロードしインストールを行ってください。詳しいインストール手順は、[MariaDB_install.md](./MariaDB_install.md)を確認してください。
    - install.bat を実行します。
-2. nginxのインストール
+>2. nginxのインストール
    - nginx_install.bat を実行します。
-3. システムの起動
+>3. システムの起動
    - start.bat を実行します。
    - アクセス先URLは `http://(コンピュータのIPアドレス)/` です。
    - 起動したあと**ログインユーザ名(学籍番号または教員番号)とパスワードを登録してください。登録方法は`http://localhost:8000/docs`にアクセスした後に`/user/create`を選択し、ユーザ名とパスワードを登録してください。**
    - 実運用する際はSSL証明書を取得し、httpsで通信するようにしてください。設定ファイルは`nginx/setting/team1.conf`にあります。
-4. システムの停止
+>4. システムの停止
    - 開いている`powershell`ウィンドウをControl+Cを使って停止します。
    - stop.bat を実行し、nginxを停止します。
 ## 開発段階のシステムの起動
