@@ -11,7 +11,14 @@ from DB.check_idm import get_data
 from DB.db_csv import csv_create
 
 # uvicorn main:app --reload
-app = FastAPI()
+app = FastAPI(
+    title="Team1 Attendance Management System",
+    description="Team1 Presents",
+    version="1.0.0",
+    docs_url="/docs",
+    redoc_url="/redoc",
+    openapi_url="/openapi.json",
+)
 # routers/login からインポートする
 app.include_router(login.router)
 app.include_router(front.router)
